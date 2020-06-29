@@ -36,3 +36,19 @@
     transform: rotate(360deg);
   }
 }
+
+@font-face {
+  font-family: 'Anglodavek';
+  font-style: normal;
+  font-weight: 400;
+  src: url('resources/fonts/Anglodavek-a55E.ttf');
+  src: local('Anglodavek'), url('resources/fonts/Anglodavek-a55E.ttf');
+}
+
+@font-face {
+  font-family: 'Reisenberg';
+  font-style: normal;
+  font-weight: 400;
+  src: url('resources/fonts/Reisenberg20-ExP9.ttf');
+  src: local('Reisenberg'), url('resources/fonts/Reisenberg20-ExP9.ttf');
+}

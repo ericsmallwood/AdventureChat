@@ -1,0 +1,21 @@
+.header {
+    width: 100%;
+    height: 5%;
+    margin-bottom: 10px;
+}
+
+.header-menu {
+    float: right;
+    padding: 10px;
+}
+
+.header-logo {
+    height: 30px;
+    width: auto;
+    padding: 10px;
+}
+
+.header-link {
+    margin-left: 10px;
+    font-family: 'Anglodavek';
+}
