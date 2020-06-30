@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "lib": ["es6", "dom"],
     "esModuleInterop": true,
     "noImplicitAny": true,
     "module": "commonjs",
@@ -7,13 +8,16 @@
     "pretty": true,
     "types": [
       "jest",
-      "node"
+      "node",
+      "reflect-metadata"
     ],
     "sourceMap": true,
     "target": "es6",
-    "baseUrl": "./"
+    "baseUrl": "./",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "exclude": [
-    "node_modules",
+    "node_modules"
   ]
 }
