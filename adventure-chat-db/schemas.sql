@@ -1,0 +1,3 @@
+CREATE SCHEMA `auth` ;
+CREATE SCHEMA `accounts`;
+CREATE SCHEMA `chat`;
