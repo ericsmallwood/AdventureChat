@@ -1,5 +1,5 @@
 import {combineReducers} from "redux";
 import user from './user';
-import loggedIn from './loggedIn';
+import auth from './auth';
 
-export default combineReducers({user, loggedIn});
+export default combineReducers({user, auth});

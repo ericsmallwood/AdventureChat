@@ -52,3 +52,11 @@
   src: url('resources/fonts/Reisenberg20-ExP9.ttf');
   src: local('Reisenberg'), url('resources/fonts/Reisenberg20-ExP9.ttf');
 }
+
+@font-face {
+  font-family: 'Dethek';
+  font-style: normal;
+  font-weight: 400;
+  src: url('resources/fonts/Dethek-wWJz.ttf');
+  src: local('Dethek'), url('resources/fonts/Dethek-wWJz.ttf');
+}

@@ -26,7 +26,7 @@ function LoggedIn(props) {
 
 export default function Header() {
     const dispatch = useDispatch();
-    const isLoggedIn = useSelector(state => state.loggedIn);
+    const isLoggedIn = useSelector(state => state.auth.loggedIn);
     const [user, setUser] = useState({firstName: 'User', lastName: 'User'});
 
     //todo: getUserData

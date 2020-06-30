@@ -1,5 +1,6 @@
-import {EDIT_USER, LOAD_USER, TOGGLE_LOGGED_IN} from './actionTypes';
+import {EDIT_USER, LOAD_USER, TOGGLE_LOGGED_IN, SET_TOKEN} from './actionTypes';
 
+// user
 export const changeUser = user => ({
    type: LOAD_USER,
    payload: {user}
@@ -10,7 +11,13 @@ export const editUser = user => ({
    payload: {user}
 });
 
+// auth
 export const toggleLoggedIn = loggedIn => ({
     type: TOGGLE_LOGGED_IN,
     payload: {loggedIn}
+});
+
+export const setToken = token => ({
+    type: SET_TOKEN,
+    payload: {token}
 });

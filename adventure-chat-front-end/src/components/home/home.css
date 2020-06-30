@@ -45,3 +45,32 @@
     left: 62%;
     top: 53%
 }
+
+.speech-bubble {
+    position: absolute;
+    background: white;
+    border-radius: .4em;
+    top: 7%;
+    right: 38%;
+}
+
+.speech-bubble:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border: 20px solid transparent;
+    border-top-color: white;
+    border-bottom: 0;
+    border-left: 0;
+    margin-left: -10px;
+    margin-bottom: -20px;
+}
+
+.speech-bubble-text {
+    font-family: 'Dethek';
+    font-size: 30px;
+    margin: 20px;
+}
