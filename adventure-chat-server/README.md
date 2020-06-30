@@ -10,3 +10,12 @@
 - `npm run lint` - Run ESLint
 - `npm run ci` - Run continuous test mode with watching
 - `npm test` - Run tests & generate coverage report
+
+## General Setup
+- install and run mysql
+- import database, table, and data scripts from adventure-chat-db folder
+- run command `ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password'` in mysql
+- run command `flush privileges` in mysql
+- install and run NATS (https://nats.io/download/nats-io/nats-server/)
+- create config.ts file for each service folders at the root of the folder.
+- npm run dev
