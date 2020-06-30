@@ -12,6 +12,7 @@
 - `npm test` - Run tests & generate coverage report
 
 ## General Setup
+- install typescript
 - install and run mysql
 - import database, table, and data scripts from adventure-chat-db folder
 - run command `ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password'` in mysql
