@@ -23,9 +23,7 @@ function Main () {
 }
 
 export default function Home() {
-    const loggedIn = useSelector(state => {
-        return state.loggedIn
-    });
+    const isLoggedIn = useSelector(state => state.loggedIn);
 
-    return (loggedIn ? <Main/> : <Welcome/>);
+    return (isLoggedIn ? <Main/> : <Welcome/>);
 }

@@ -5,7 +5,7 @@ const initialState = false;
 export default function (state = initialState, action) {
   switch (action.type) {
       case TOGGLE_LOGGED_IN:
-          return action.loggedIn;
+          return action.payload.loggedIn;
       default:
           return state;
   }
