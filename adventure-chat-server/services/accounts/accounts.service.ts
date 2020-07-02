@@ -1,5 +1,5 @@
+"use strict";
 import { ServiceSchema } from "moleculer";
-import ApiGateway = require("moleculer-web");
 import {container} from './inversify.config';
 import {TYPES} from "./types";
 import {UsersBusinessManager} from "./business-managers/impl/UsersBusinessManager";
@@ -8,27 +8,56 @@ const usersBusinessManager = container.get<UsersBusinessManager>(TYPES.UsersBusi
 
 const AccountsService: ServiceSchema = {
     name: "accounts",
+    actions: {
+        getByUsername(ctx) {
+            return new Promise((resolve, reject) => {
+                usersBusinessManager.getByUsername(ctx.params.username)
+                    .then(result => resolve(result))
+                    .catch(error => reject(error));
+            });
+        },
+        getUser(ctx) {
+            return new Promise((resolve, reject) => {
+                usersBusinessManager.get(ctx.params.id)
+                    .then(result => resolve(result))
+                    .catch(error => reject(error));
+            });
+        },
+        updateUser(ctx) {
+            return new Promise((resolve, reject) => {
+                usersBusinessManager.update(ctx.params.id, ctx.params.user)
+                    .then(result => resolve(result))
+                    .catch(error => reject(error));
+            });
+        },
+        createUser(ctx) {
+            return new Promise((resolve, reject) => {
+                usersBusinessManager.create(ctx.params.user)
+                    .then(result => resolve(result))
+                    .catch(error => reject(error));
+            });
+        },
+        deleteUser(ctx) {
+            return new Promise((resolve, reject) => {
+                usersBusinessManager.delete(ctx.params.id)
+                    .then(result => resolve(result))
+                    .catch(error => reject(error));
+            });
+        },
+    },
 
-    mixins: [ApiGateway],
+    /**
+     * Events
+     */
+    events: {
 
-    settings: {
-        port: process.env.PORT || 3001,
+    },
 
-        routes: [{
-            path: "/accounts",
-            whitelist: [
-                "**",
-            ],
-            aliases: {
-                "GET /"(req: any, res: any) {
-                    usersBusinessManager
-                        .get('1')
-                        .then(result => {
-                            res.end(JSON.stringify(result));
-                        });
-                },
-            },
-        }],
+    /**
+     * Methods
+     */
+    methods: {
+
     },
 };
 

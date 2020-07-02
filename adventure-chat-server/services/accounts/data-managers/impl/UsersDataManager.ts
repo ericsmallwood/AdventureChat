@@ -12,7 +12,7 @@ export class UsersDataManager implements IUsersDataManager {
     }
 
     create(data: any): Promise<any> {
-        return Promise.resolve(undefined);
+        return this._usersDao.create(data);
     }
 
     delete(id: string): Promise<any> {
@@ -29,6 +29,10 @@ export class UsersDataManager implements IUsersDataManager {
 
     update(id: string, data: any): Promise<any> {
         return Promise.resolve(undefined);
+    }
+
+    getByUsername(username: string): Promise<any> {
+        return this._usersDao.getByUsername(username);
     }
 
 }

@@ -13,15 +13,19 @@ export default class UserLoginsDataManager implements IUserLoginsDataManager {
         this._userLoginsDao = userLoginsDao;
     }
 
-    login(username: string, hash: string): Promise<any> {
-        return this._userLoginsDao.login(username, hash);
+    login(userid: number, hash: string): Promise<any> {
+        return this._userLoginsDao.login(userid, hash);
     }
 
     updateToken(userid: number, token: string): Promise<any> {
         return this._userLoginsDao.updateToken(userid, token);
     }
 
-    authenticate(token: string): Promise<any> {
-        return this._userLoginsDao.authenticate(token);
+    authorize(token: string): Promise<any> {
+        return this._userLoginsDao.authorize(token);
+    }
+
+    createUserLogin(userLogin: any): Promise<any> {
+        return this._userLoginsDao.createUserLogin(userLogin);
     }
 }

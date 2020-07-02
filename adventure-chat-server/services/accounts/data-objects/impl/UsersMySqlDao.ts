@@ -1,7 +1,9 @@
 import IUsersDao from "../IUsersDao";
 import {injectable} from "inversify";
+import moment = require('moment');
 import * as mysql from 'mysql';
 import {mysqlLogin} from "../../config";
+
 @injectable()
 export class UsersMySqlDao implements IUsersDao {
     connection: any;
@@ -13,7 +15,28 @@ export class UsersMySqlDao implements IUsersDao {
 
 
     create(data: any): Promise<any> {
-        return Promise.resolve(undefined);
+        return new Promise((resolve, reject) => {
+            const query = `
+                INSERT INTO users 
+                (firstname, lastname, birthday, email, confirmed, username) 
+                VALUES 
+                (
+                    '${data.firstname}', 
+                    '${data.lastname}', 
+                    '${moment(new Date(data.birthday)).format('YYYY-MM-DD').toString()}', 
+                    '${data.email}', 
+                    1, 
+                    '${data.username}'
+                )
+            `;
+            this.connection.query(query, (err: any, result: any) => {
+                if(err) {
+                    console.log(err);
+                    return reject(err);
+                }
+                resolve(result);
+            });
+        });
     }
 
     delete(id: string): Promise<any> {
@@ -22,12 +45,28 @@ export class UsersMySqlDao implements IUsersDao {
 
     get(id: string): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.connection.query(`SELECT * FROM users where id = '${id}'`, (err: any, result: any, fields: any) => {
+            this.connection.query(`SELECT * FROM users where id = '${id}' limit 1`, (err: any, result: any, fields: any) => {
                 if(err) {
                     return reject(err);
                 }
 
-                resolve(result);
+                resolve(result.length === 0 ? null : result[0]);
+            });
+        })
+    }
+
+    getByUsername(username: string): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.connection.query(`SELECT * FROM users where username = '${username}' limit 1`, (err: any, result: any, fields: any) => {
+                if(err) {
+                    return reject(err);
+                }
+
+                if(result.length === 0) {
+                    return reject('not found');
+                }
+
+                resolve(result.length === 0 ? null : result[0]);
             });
         })
     }
@@ -39,5 +78,4 @@ export class UsersMySqlDao implements IUsersDao {
     update(id: string, data: any): Promise<any> {
         return Promise.resolve(undefined);
     }
-
 }

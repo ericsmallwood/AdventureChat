@@ -14,7 +14,7 @@ export class UsersBusinessManager implements IUsersBusinessManger {
     }
 
     create(data: any): Promise<any> {
-        return Promise.resolve(undefined);
+        return this._userDataManager.create(data);
     }
 
     delete(id: string): Promise<any> {
@@ -31,6 +31,10 @@ export class UsersBusinessManager implements IUsersBusinessManger {
 
     update(id: string, data: any): Promise<any> {
         return Promise.resolve(undefined);
+    }
+
+    getByUsername(username: string): Promise<any> {
+        return this._userDataManager.getByUsername(username);
     }
 
 }

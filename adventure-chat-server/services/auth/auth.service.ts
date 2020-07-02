@@ -1,40 +1,52 @@
+"use strict";
 import { ServiceSchema } from "moleculer";
-import ApiGateway = require("moleculer-web");
 import {container} from './inversify.config';
 import {TYPES} from "./types";
 import UserLoginsBusinessManager from "./business-managers/impl/UserLoginsBusinessManager";
 
 const userLoginsBusinessManager = container.get<UserLoginsBusinessManager>(TYPES.UserLoginsBusinessManager);
 
-const AccountsService: ServiceSchema = {
+const AuthService: ServiceSchema = {
     name: "auth",
+    actions: {
+        login(ctx) {
+            return new Promise((resolve, reject) => {
+                userLoginsBusinessManager.login(ctx.params.username, ctx.params.password)
+                    .then(result => resolve(result))
+                    .catch(error => reject(error));
+            });
+        },
+        authorize(ctx) {
+            return new Promise((resolve, reject) => {
+                userLoginsBusinessManager
+                    .authorize(ctx.params.token)
+                    .then(result => resolve(result))
+                    .catch(error => reject(error));
+            });
+        },
+        createUserLogin(ctx) {
+            return new Promise((resolve, reject) => {
+               userLoginsBusinessManager
+                   .createUserLogin(ctx.params.id, ctx.params.password)
+                   .then(result => resolve(result))
+                   .catch(error => reject(error));
+            });
+        }
+    },
 
-    mixins: [ApiGateway],
+    /**
+     * Events
+     */
+    events: {
 
-    settings: {
-        port: process.env.PORT || 3002,
+    },
 
-        routes: [{
-            path: "/auth",
-            whitelist: [
-                "**",
-            ],
-            aliases: {
-                "POST /login"(req: any, res: any) {
-                    userLoginsBusinessManager.login(req.body.username, req.body.password)
-                        .then(result => {
-                            res.end(JSON.stringify(result));
-                        });
-                },
-                "POST /"(req: any, res: any) {
-                    userLoginsBusinessManager.authenticate(req.body.token)
-                        .then(result => {
-                            res.end(JSON.stringify(result));
-                        });
-                },
-            },
-        }],
+    /**
+     * Methods
+     */
+    methods: {
+
     },
 };
 
-export = AccountsService;
+export = AuthService;
