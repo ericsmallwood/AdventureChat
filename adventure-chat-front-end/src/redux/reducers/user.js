@@ -7,7 +7,7 @@ const initialState = {
 export default function(state = initialState, action) {
     switch(action.type) {
         case LOAD_USER:
-            return { user: action.user};
+            return { user: action.payload.user};
         case EDIT_USER:
             return {...state, ...action};
         default:

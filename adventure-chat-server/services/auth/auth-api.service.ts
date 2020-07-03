@@ -14,6 +14,13 @@ const AuthApiService: ServiceSchema = {
     settings: {
         port: process.env.PORT || 3002,
 
+        // Global CORS settings for all routes
+        cors: {
+            origin: "*",
+            methods: '*',
+            allowedHeaders: '*',
+        },
+
         routes: [
             {
                 path: "/login",
@@ -22,14 +29,15 @@ const AuthApiService: ServiceSchema = {
                 ],
                 aliases: {
                     "POST /"(req: any, res: any) {
-
+                        let user: any;
                         req.$ctx
                             .call('accounts.getByUsername', {username: req.$params.username})
                             .then((result: any) => {
+                                user = result;
                                 return req.$ctx.call('auth.login', {username: result.id, password: req.$params.password})
                             })
                             .then((result: any) => {
-                                res.end(JSON.stringify(result));
+                                res.end(JSON.stringify({user: user, token: result.token}));
                             })
                             .catch((error: any) => {
                                 console.log(error);

@@ -60,3 +60,11 @@
   src: url('resources/fonts/Dethek-wWJz.ttf');
   src: local('Dethek'), url('resources/fonts/Dethek-wWJz.ttf');
 }
+
+@font-face {
+  font-family: 'Rellanic';
+  font-style: normal;
+  font-weight: 400;
+  src: url('resources/fonts/Rellanic.otf');
+  src: local('Dethek'), url('resources/fonts/Rellanic.otf');
+}
