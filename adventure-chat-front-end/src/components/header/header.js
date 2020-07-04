@@ -37,9 +37,7 @@ function LoggedIn(props) {
 export default function Header() {
     const dispatch = useDispatch();
     const isLoggedIn = useSelector(state => state.auth.loggedIn);
-    const user = useSelector(state => {
-        return state.user.user
-    });
+    const user = useSelector(state => state.user.user);
     const [open, setOpen] = useState(false);
     const [userName, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -48,7 +46,8 @@ export default function Header() {
         LoginService
             .login(userName, password)
             .then(result => {
-               console.log(result);
+               console.log
+               (result);
                localStorage.setItem('user', JSON.stringify(result.user));
                 localStorage.setItem('token', result.token);
                 dispatch(setToken(result.token));

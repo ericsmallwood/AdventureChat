@@ -20,4 +20,10 @@ export class LoginService {
             });
         });
     }
+
+    static hydrate() {
+        return new Promise((resolve, reject) => {
+
+        })
+    }
 }
