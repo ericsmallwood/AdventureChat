@@ -27,7 +27,7 @@ export class LoginService {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({userData})
+                body: JSON.stringify(userData)
             })
             .then(response => response.json())
             .then(data => {

@@ -11,6 +11,13 @@ const AccountsApiService: ServiceSchema = {
     settings: {
         port: process.env.PORT || 3001,
 
+        // Global CORS settings for all routes
+        cors: {
+            origin: "*",
+            methods: '*',
+            allowedHeaders: '*',
+        },
+
         routes: [
             {
                 path: "/get",
@@ -66,6 +73,7 @@ const AccountsApiService: ServiceSchema = {
                         let newUser: any;
                         req.$ctx.call("accounts.createUser", {user: req.$params.user})
                             .then((result: any) => {
+                                console.log(result);
                                 return req.$ctx.call("accounts.getUser", {id: result.insertId});
                             })
                             .then((result: any) => {
