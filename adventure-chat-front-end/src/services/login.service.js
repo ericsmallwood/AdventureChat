@@ -1,9 +1,8 @@
-import {AUTH_API_URI} from "../config";
+import {AUTH_API_URI, ACCOUNTS_API_URI} from "../config";
 
 export class LoginService {
     static login (username, password) {
         return new Promise((resolve, reject) => {
-            console.log(AUTH_API_URI);
             fetch(`${AUTH_API_URI}login`, {
                 method: 'POST',
                 headers: {
@@ -21,9 +20,22 @@ export class LoginService {
         });
     }
 
-    static hydrate() {
+    static register(userData) {
         return new Promise((resolve, reject) => {
-
+            fetch(`${ACCOUNTS_API_URI}register`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({userData})
+            })
+            .then(response => response.json())
+            .then(data => {
+                resolve(data);
+            })
+            .catch((error) => {
+                reject(error);
+            });
         })
     }
 }
