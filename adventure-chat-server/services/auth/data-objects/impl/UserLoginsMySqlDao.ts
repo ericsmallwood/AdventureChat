@@ -31,10 +31,9 @@ export default class UserLoginsMySqlDao implements IUserLoginsDao {
 
     login(userid: number, hash: string): Promise<any> {
         return new Promise((resolve, reject) => {
-            const query = `SELECT * FROM user_logins where hash = '${hash}' and userid = ${userid} limit 1`;
+            const query = `SELECT * FROM user_logins where hash = '${hash}' and userid = ${userid} and confirmed = 1 limit 1`;
             this.connection.query(query, (err: any, result: any) => {
                 if(err) {
-                    console.log(err);
                     return reject(err);
                 }
 

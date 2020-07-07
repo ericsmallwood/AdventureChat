@@ -3,7 +3,7 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
-import {LoginService} from "../../services/login.service";
+import {AccountService} from "../../services/account.service";
 import {loadUser, setToken, toggleLoggedIn} from "../../redux/actions";
 import {useDispatch} from "react-redux";
 
@@ -13,7 +13,7 @@ export default function LoginModal(props) {
     const [password, setPassword] = useState('');
 
     function handleLogin() {
-        LoginService
+        AccountService
             .login(userName, password)
             .then(result => {
                 localStorage.setItem('user', JSON.stringify(result.user));
@@ -31,13 +31,7 @@ export default function LoginModal(props) {
     return (
         <Dialog open={props.open} onClose={() => props.setOpen(false)}>
             <DialogTitle style={{textAlign: 'center'}}>
-                    <span
-                        style={{
-                            fontFamily: 'Rellanic',
-                            fontSize: '30px',
-                            fontWeight: 'bold'
-                        }}
-                    >
+                    <span style={{fontFamily: 'Rellanic', fontSize: '30px', fontWeight: 'bold'}}>
                         Login
                     </span>
             </DialogTitle>

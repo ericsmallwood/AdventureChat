@@ -2,14 +2,7 @@ import React, {useEffect, useState} from 'react';
 import './header.css'
 import Logo from './../../resources/images/logo.jpg'
 import {useDispatch, useSelector} from "react-redux";
-import {LOAD_USER, SET_TOKEN, TOGGLE_LOGGED_IN} from "../../redux/actionTypes";
-import {editUser, loadUser, setToken, toggleLoggedIn} from "../../redux/actions";
-import {Modal} from "@material-ui/core";
-import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
-import {LoginService} from "../../services/login.service";
+import {toggleLoggedIn} from "../../redux/actions";
 import LoginModal from "./loginModal";
 import RegistrationModal from "./registrationModal";
 
@@ -19,7 +12,6 @@ function LoggedOut(props) {
       <div className='header-menu'>
           <span className='header-link' onClick={() => props.setOpenLogin(true)}>Login</span>
           <span className='header-link' onClick={() => props.setOpenRegistration(true)}>Register</span>
-
       </div>
     );
 }
@@ -42,10 +34,6 @@ export default function Header() {
     const user = useSelector(state => state.user.user);
     const [openLogin, setOpenLogin] = useState(false);
     const [openRegistration, setOpenRegistration] = useState(false);
-
-
-    //todo: getUserData
-    useEffect(() => null, [])
 
     const headerMenu = isLoggedIn
         ? <LoggedIn user={user} dispatch={dispatch}/>

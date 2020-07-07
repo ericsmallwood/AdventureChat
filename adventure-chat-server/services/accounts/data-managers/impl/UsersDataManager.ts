@@ -28,11 +28,15 @@ export class UsersDataManager implements IUsersDataManager {
     }
 
     update(id: string, data: any): Promise<any> {
-        return Promise.resolve(undefined);
+        return this._usersDao.update(id, data);
     }
 
     getByUsername(username: string): Promise<any> {
         return this._usersDao.getByUsername(username);
+    }
+
+    getByConfirmationCode(confirmationCode: string): Promise<any> {
+        return this._usersDao.getByConfirmationCode(confirmationCode);
     }
 
 }

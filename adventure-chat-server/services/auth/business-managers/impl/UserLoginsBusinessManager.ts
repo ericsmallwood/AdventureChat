@@ -50,8 +50,6 @@ export default class UserLoginsBusinessManager implements IUserLoginsBusinessMan
     createUserLogin(id: string, password: string): Promise<any> {
         const hash = crypto.createHash("sha256").update(password).digest("hex");
         const token = uuidv4();
-        console.log(hash);
-        console.log(token);
         return new Promise((resolve, reject) => {
             this._userLoginsDataManager
                 .createUserLogin({id: id, token: token, hash: hash})

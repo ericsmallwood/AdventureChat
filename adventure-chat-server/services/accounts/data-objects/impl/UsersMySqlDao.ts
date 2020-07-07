@@ -18,20 +18,20 @@ export class UsersMySqlDao implements IUsersDao {
         return new Promise((resolve, reject) => {
             const query = `
                 INSERT INTO users 
-                (firstname, lastname, birthday, email, confirmed, username) 
+                (firstname, lastname, birthday, email, confirmed, username, confirmation_code) 
                 VALUES 
                 (
                     '${data.firstname}', 
                     '${data.lastname}', 
                     '${moment(new Date(data.birthday)).format('YYYY-MM-DD').toString()}', 
                     '${data.email}', 
-                    1, 
-                    '${data.username}'
+                    0, 
+                    '${data.username}',
+                    '${data.confirmation_code}'
                 )
             `;
             this.connection.query(query, (err: any, result: any) => {
                 if(err) {
-                    console.log(err);
                     return reject(err);
                 }
                 resolve(result);
@@ -63,7 +63,7 @@ export class UsersMySqlDao implements IUsersDao {
                 }
 
                 if(result.length === 0) {
-                    return reject('not found');
+                    return reject('user not found');
                 }
 
                 resolve(result.length === 0 ? null : result[0]);
@@ -76,6 +76,44 @@ export class UsersMySqlDao implements IUsersDao {
     }
 
     update(id: string, data: any): Promise<any> {
-        return Promise.resolve(undefined);
+        return new Promise((resolve, reject) => {
+            this.connection
+                .query(
+                    `
+                        UPDATE users 
+                        SET 
+                            firstname = '${data.firstname}', 
+                            lastname='${data.lastname}', 
+                            birthday='${moment(new Date(data.birthday)).format('YYYY-MM-DD').toString()}', 
+                            email='${data.email}',
+                            username='${data.username}',
+                            confirmed=1
+                        where id = '${id}' 
+                    `,
+                    (err: any, result: any, fields: any) => {
+                        if(err) {
+                            return reject(err);
+                        }
+
+                        resolve(result.length === 0 ? null : result[0]);
+                    });
+        });
+    }
+
+    getByConfirmationCode(confirmationCode: string): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this.connection
+                .query(
+                    `SELECT * FROM users where confirmation_code='${confirmationCode}' and confrimed=0 limit 1`,
+                    (err: any, result: any, fields: any) => {
+                        if(err) {
+                            return reject(err);
+                        }
+                        if(result.length === 0) {
+                            return reject('user with that confirmation code not found');
+                        }
+                        resolve(result.length === 0 ? null : result[0]);
+             });
+        })
     }
 }

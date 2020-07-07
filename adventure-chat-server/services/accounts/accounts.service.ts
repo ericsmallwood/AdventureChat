@@ -44,6 +44,13 @@ const AccountsService: ServiceSchema = {
                     .catch(error => reject(error));
             });
         },
+        confirmUser(ctx) {
+            return new Promise((resolve, reject) => {
+                usersBusinessManager.confirmAccount(ctx.params.code)
+                    .then(result => resolve(result))
+                    .catch(error => reject(error));
+            });
+        }
     },
 
     /**

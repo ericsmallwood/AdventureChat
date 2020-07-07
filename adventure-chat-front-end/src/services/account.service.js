@@ -1,6 +1,6 @@
 import {AUTH_API_URI, ACCOUNTS_API_URI} from "../config";
 
-export class LoginService {
+export class AccountService {
     static login (username, password) {
         return new Promise((resolve, reject) => {
             fetch(`${AUTH_API_URI}login`, {
@@ -37,5 +37,24 @@ export class LoginService {
                 reject(error);
             });
         })
+    }
+
+    static confirmRegistration(code) {
+        return new Promise((resolve, reject) => {
+            fetch(`${ACCOUNTS_API_URI}confirmation`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({code: code})
+            })
+            .then(response => response.json())
+            .then(data => {
+                resolve(data);
+            })
+            .catch((error) => {
+                reject(error);
+            });
+        });
     }
 }

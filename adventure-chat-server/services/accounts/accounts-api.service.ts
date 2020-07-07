@@ -35,6 +35,7 @@ const AccountsApiService: ServiceSchema = {
                             .catch((error: any) => {
                                 res.writeHead(404)
                                 res.end(JSON.stringify({error: 'Incorrect Login'}));
+                                res.finish();
                             });
                     },
                 },
@@ -50,7 +51,6 @@ const AccountsApiService: ServiceSchema = {
                 },
                 aliases: {
                     "PUT /:id"(req: any, res: any) {
-                        console.log(req);
                         req.$ctx.call("accounts.updateUser", {id: req.$params.id, user: req.$params.user})
                             .then((result: any) => res.end(JSON.stringify(result)))
                             .catch((error: any) => {
@@ -73,7 +73,6 @@ const AccountsApiService: ServiceSchema = {
                         let newUser: any;
                         req.$ctx.call("accounts.createUser", {user: req.$params.user})
                             .then((result: any) => {
-                                console.log(result);
                                 return req.$ctx.call("accounts.getUser", {id: result.insertId});
                             })
                             .then((result: any) => {
@@ -82,12 +81,33 @@ const AccountsApiService: ServiceSchema = {
 
                                 return req.$ctx.call("auth.createUserLogin", userLogin);
                             })
-                            .then((result: any) => {
-                                res.end(JSON.stringify({...{user: newUser}, ...result}));
+                            .then(() => {
+                                res.end(JSON.stringify({data: 'OK'}));
                             })
                             .catch((error: any) => {
                                 res.writeHead(500)
-                                res.end(JSON.stringify({error: 'Server Error'}));
+                                res.end(JSON.stringify({error: error.message}));
+                            });
+                    },
+                },
+            },
+            {
+                path: "/confirmation",
+                whitelist: [
+                    "**",
+                ],
+                bodyParsers: {
+                    json: true
+                },
+                aliases: {
+                    "PUT /"(req: any, res: any) {
+                        let newUser: any;
+                        req.$ctx.call("accounts.confirmUser", {code: req.$params.code})
+                            .then(() => {
+                                res.end(JSON.stringify({data: 'OK'}));
+                            })
+                            .catch((error: any) => {
+                                res.end(JSON.stringify({error: error.message}), 500);
                             });
                     },
                 },

@@ -1,14 +1,12 @@
 import React, {useState} from "react";
+import {  } from "react-router-dom";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
-import {LoginService} from "../../services/login.service";
-import {loadUser, setToken, toggleLoggedIn} from "../../redux/actions";
-import {useDispatch} from "react-redux";
+import {AccountService} from "../../services/account.service";
 
 export default function RegistrationModal(props) {
-    const dispatch = useDispatch();
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastname] = useState('');
     const [birthday, setBirthday] = useState('');
@@ -17,15 +15,10 @@ export default function RegistrationModal(props) {
     const [password, setPassword] = useState('');
 
     function handleRegistration() {
-        LoginService
+        AccountService
             .register({user: {firstname, lastname, birthday, email, username}, password: password})
-            .then(result => {
-                localStorage.setItem('user', JSON.stringify(result.user));
-                localStorage.setItem('token', result.token);
-                dispatch(setToken(result.token));
-                dispatch(loadUser(result.user));
-                dispatch(toggleLoggedIn(true));
-                props.setOpen(false);
+            .then(() => {
+                useHistory
             })
             .catch(error => {
                 console.log(error);

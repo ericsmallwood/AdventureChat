@@ -40,7 +40,6 @@ const AuthApiService: ServiceSchema = {
                                 res.end(JSON.stringify({user: user, token: result.token}));
                             })
                             .catch((error: any) => {
-                                console.log(error);
                                 res.writeHead(400)
                                 res.end(JSON.stringify({error: 'Incorrect Login'}));
                             })

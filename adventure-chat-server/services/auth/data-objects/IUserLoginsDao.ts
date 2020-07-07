@@ -1,4 +1,4 @@
-import IUserLoginsBase from "../base-impls/IUserLoginsBase";
+import IUserLoginsBase from "../base/IUserLoginsBase";
 
 export default interface IUserLoginsDao extends IUserLoginsBase {
 
