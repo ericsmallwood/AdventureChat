@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {  } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
@@ -7,6 +7,7 @@ import Dialog from "@material-ui/core/Dialog";
 import {AccountService} from "../../services/account.service";
 
 export default function RegistrationModal(props) {
+    console.log(props);
     const [firstname, setFirstname] = useState('');
     const [lastname, setLastname] = useState('');
     const [birthday, setBirthday] = useState('');
@@ -18,7 +19,7 @@ export default function RegistrationModal(props) {
         AccountService
             .register({user: {firstname, lastname, birthday, email, username}, password: password})
             .then(() => {
-                useHistory
+                window.location.href = '/registered';
             })
             .catch(error => {
                 console.log(error);

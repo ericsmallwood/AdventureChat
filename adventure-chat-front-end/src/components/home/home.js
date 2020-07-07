@@ -39,7 +39,8 @@ function Main () {
     );
 }
 
-export default function Home() {
+export default function Home(props) {
+    console.log(props)
     const isLoggedIn = useSelector(state => state.auth.loggedIn);
 
     return (isLoggedIn ? <Main/> : <Welcome/>);
