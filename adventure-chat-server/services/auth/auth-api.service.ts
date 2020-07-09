@@ -1,10 +1,5 @@
 import { ServiceSchema } from "moleculer";
 import ApiGateway = require("moleculer-web");
-import {container} from './inversify.config';
-import {TYPES} from "./types";
-import UserLoginsBusinessManager from "./business-managers/impl/UserLoginsBusinessManager";
-
-const userLoginsBusinessManager = container.get<UserLoginsBusinessManager>(TYPES.UserLoginsBusinessManager);
 
 const AuthApiService: ServiceSchema = {
     name: "auth-api",

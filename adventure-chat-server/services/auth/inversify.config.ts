@@ -1,15 +1,15 @@
 import { Container } from "inversify";
 import "reflect-metadata";
 import {TYPES} from './types';
-import IUserLoginsBusinessManager from "./business-managers/IUserLoginsBusinessManager";
-import UserLoginsBusinessManager from "./business-managers/impl/UserLoginsBusinessManager";
-import IUserLoginsDataManager from "./data-managers/IUserLoginsDataManager";
-import UserLoginsDataManager from "./data-managers/impl/UserLoginsDataManager";
-import IUserLoginsDao from "./data-objects/IUserLoginsDao";
-import UserLoginsMySqlDao from "./data-objects/impl/UserLoginsMySqlDao";
+import IAuthBusinessManager from "./business-managers/IAuthBusinessManager";
+import AuthBusinessManager from "./business-managers/impl/AuthBusinessManager";
+import IAuthDataManager from "./data-managers/IAuthDataManager";
+import AuthDataManager from "./data-managers/impl/AuthDataManager";
+import IAuthDao from "./data-objects/IAuthDao";
+import AuthMySqlDao from "./data-objects/impl/AuthMySqlDao";
 
 export const container = new Container();
 
-container.bind<IUserLoginsBusinessManager>(TYPES.UserLoginsBusinessManager).to(UserLoginsBusinessManager);
-container.bind<IUserLoginsDataManager>(TYPES.UserLoginsDataManager).to(UserLoginsDataManager);
-container.bind<IUserLoginsDao>(TYPES.UserLoginsDataObject).to(UserLoginsMySqlDao);
+container.bind<IAuthBusinessManager>(TYPES.AuthBusinessManager).to(AuthBusinessManager);
+container.bind<IAuthDataManager>(TYPES.UserLoginsDataManager).to(AuthDataManager);
+container.bind<IAuthDao>(TYPES.AuthDataObject).to(AuthMySqlDao);

@@ -1,5 +1,5 @@
 export const TYPES = {
-    UserLoginsBusinessManager: Symbol('UserLoginsBusinessManager'),
+    AuthBusinessManager: Symbol('UserLoginsBusinessManager'),
     UserLoginsDataManager: Symbol('UserLoginsDataManager'),
-    UserLoginsDataObject: Symbol('UserLoginsDataObject'),
+    AuthDataObject: Symbol('UserLoginsDataObject'),
 }

@@ -16,6 +16,10 @@ export default function LoginModal(props) {
         AccountService
             .login(userName, password)
             .then(result => {
+                if(result.error) {
+                    return console.log(result.error);
+                }
+
                 localStorage.setItem('user', JSON.stringify(result.user));
                 localStorage.setItem('token', result.token);
                 dispatch(setToken(result.token));

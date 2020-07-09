@@ -1,21 +1,13 @@
 import {injectable} from "inversify";
-import IUserLoginsDao from "../IUserLoginsDao";
-import * as mysql from "mysql";
-import {mysqlLogin} from "../../config";
+import IAuthDao from "../IAuthDao";
+import {connection} from '../../db';
 
 @injectable()
-export default class UserLoginsMySqlDao implements IUserLoginsDao {
-    connection: any;
-
-    constructor() {
-        this.connection = mysql.createConnection(mysqlLogin);
-        this.connection.connect();
-    }
-
+export default class AuthMySqlDao implements IAuthDao {
     authorize(token: string): Promise<any> {
         return new Promise((resolve, reject) => {
            const query = `SELECT * FROM user_logins where token = '${token}' limit 1`;
-           this.connection.query(query, (err: any, result: any) => {
+           connection.query(query, (err: any, result: any) => {
                if(err) {
                    return reject(err);
                }
@@ -32,7 +24,7 @@ export default class UserLoginsMySqlDao implements IUserLoginsDao {
     login(userid: number, hash: string): Promise<any> {
         return new Promise((resolve, reject) => {
             const query = `SELECT * FROM user_logins where hash = '${hash}' and userid = ${userid} and confirmed = 1 limit 1`;
-            this.connection.query(query, (err: any, result: any) => {
+            connection.query(query, (err: any, result: any) => {
                 if(err) {
                     return reject(err);
                 }
@@ -49,7 +41,7 @@ export default class UserLoginsMySqlDao implements IUserLoginsDao {
     updateToken(userid: number, token: string) {
         return new Promise ((resolve, reject) => {
             const query = `UPDATE user_logins SET token = '${token}' WHERE userid = '${userid}'`;
-            this.connection.query(query, (err: any, result: any) => {
+            connection.query(query, (err: any, result: any) => {
                 if(err) {
                     return reject(err);
                 }
@@ -68,7 +60,7 @@ export default class UserLoginsMySqlDao implements IUserLoginsDao {
                 ('${userLogin.id}', '${userLogin.token}', '${userLogin.hash}')
             `;
 
-            this.connection.query(query, (err: any, result: any) => {
+            connection.query(query, (err: any, result: any) => {
                 if(err) {
                     return reject(err);
                 }
