@@ -1,11 +1,9 @@
 import * as mysql from 'mysql';
 import {mysqlLogin} from './config';
 
-export let connection: any = null;
+export const connection: any = mysql.createConnection(mysqlLogin);
 
 function handleDisconnect() {
-    connection = mysql.createConnection(mysqlLogin);
-
     connection.connect((err: any) => {
         if(err) {
             console.log('error when connecting to db:', err);

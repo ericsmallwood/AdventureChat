@@ -1,0 +1,8 @@
+CREATE TABLE `chat`.`campaign` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(256) NOT NULL,
+  `image` VARCHAR(256) NULL,
+  `gm` INT NOT NULL,
+  `code` VARCHAR(8) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE);
