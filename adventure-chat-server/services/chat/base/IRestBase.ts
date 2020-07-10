@@ -1,7 +1,9 @@
+import Campaign from '../models/Campaign';
+
 export default interface IRestBase {
-    create(data: any): Promise<any>;
-    get(id: string): Promise<any>;
-    getMany(id: string): Promise<any>;
-    update(id: string, data: any): Promise<any>;
-    delete(id: string): Promise<any>;
+    create(data: Campaign): Promise<any>;
+    get(id: number): Promise<Campaign>;
+    getMany(id: number): Promise<Campaign[]>;
+    update(id: number, data: Campaign): Promise<any>;
+    delete(id: number): Promise<any>;
 }

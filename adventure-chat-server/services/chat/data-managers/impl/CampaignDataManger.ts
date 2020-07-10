@@ -2,6 +2,7 @@ import {inject, injectable} from 'inversify';
 import ICampaignDataManager from '../ICampaignDataManager';
 import ICampaignDao from '../../data-objects/ICampaignDao';
 import {TYPES} from '../../types';
+import Campaign from '../../models/Campaign';
 
 @injectable()
 export default class CampaignDataManger implements ICampaignDataManager {
@@ -13,23 +14,23 @@ export default class CampaignDataManger implements ICampaignDataManager {
         this._campaignDao = campaignDao;
     }
 
-    public create(data: any): Promise<any> {
+    public create(data: Campaign): Promise<Campaign> {
         return this._campaignDao.create(data);
     }
 
-    public delete(id: string): Promise<any> {
+    public delete(id: number): Promise<any> {
         return this._campaignDao.delete(id);
     }
 
-    public get(id: string): Promise<any> {
+    public get(id: number): Promise<Campaign> {
         return this._campaignDao.get(id);
     }
 
-    public getMany(id: string): Promise<any> {
+    public getMany(id: number): Promise<Campaign[]> {
         return this._campaignDao.getMany(id);
     }
 
-    public update(id: string, data: any): Promise<any> {
+    public update(id: number, data: Campaign): Promise<any> {
         return this._campaignDao.update(id, data);
     }
 
