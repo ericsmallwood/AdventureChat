@@ -46,6 +46,15 @@ export default class CampaignBusinessManager implements ICampaignBusinessManager
         });
     }
 
+
+    public getMany(id: number): Promise<any> {
+        return new Promise((resolve, reject) => {
+            this._campaignDataManager.getMany(id)
+                .then((result: any) => resolve(result))
+                .catch((error: any) => reject(error));
+        });
+    }
+
     public protectedUpdate(id: number, data: Campaign, userId: number): Promise<any> {
         return new Promise((resolve, reject) => {
             this.verifyUser(id, userId, true)
@@ -68,5 +77,4 @@ export default class CampaignBusinessManager implements ICampaignBusinessManager
                });
         });
     }
-
 }
