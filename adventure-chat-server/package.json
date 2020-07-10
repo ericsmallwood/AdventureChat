@@ -2,6 +2,9 @@
   "name": "adventure-chat-server",
   "version": "1.0.0",
   "description": "My Moleculer microservices project",
+  "precommit": [
+    "lint"
+  ],
   "scripts": {
     "build": "tsc",
     "dev": "ts-node ./node_modules/moleculer/bin/moleculer-runner.js --hot --repl --config moleculer.config.ts services/**/*.service.ts",
@@ -28,6 +31,7 @@
     "jest": "^23.6.0",
     "jest-cli": "^23.6.0",
     "moleculer-repl": "^0.5.3",
+    "pre-commit": "^1.2.2",
     "ts-jest": "^23.10.5",
     "ts-node": "^7.0.1",
     "typescript": "^3.2.2"
@@ -36,6 +40,7 @@
     "@types/mysql": "^2.15.14",
     "@types/uuid": "^8.0.0",
     "crypto-ts": "^1.0.2",
+    "global": "^4.4.0",
     "inversify": "^5.0.1",
     "ioredis": "^4.2.0",
     "moleculer": "^0.13.0",

@@ -35,7 +35,6 @@ module.exports = {
         }
       }
     ],
-    "@typescript-eslint/interface-name-prefix": "error",
     "@typescript-eslint/member-delimiter-style": [
       "error",
       {
@@ -63,7 +62,7 @@ module.exports = {
     "@typescript-eslint/prefer-namespace-keyword": "error",
     "@typescript-eslint/quotes": [
       "error",
-      "double",
+      "single",
       {
         avoidEscape: true
       }

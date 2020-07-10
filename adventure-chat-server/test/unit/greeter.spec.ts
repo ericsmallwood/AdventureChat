@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-import { ServiceBroker, Errors } from "moleculer";
+import { ServiceBroker, Errors } from 'moleculer';
 import TestService from '../../services/greeter.service';
 
 describe("Test 'greeter' service", () => {
@@ -13,7 +13,7 @@ describe("Test 'greeter' service", () => {
 	describe("Test 'greeter.hello' action", () => {
 
 		it("should return with 'Hello Moleculer'", () => {
-			expect(broker.call("greeter.hello")).resolves.toBe("Hello Moleculer");
+			expect(broker.call('greeter.hello')).resolves.toBe('Hello Moleculer');
 		});
 
 	});
@@ -21,11 +21,11 @@ describe("Test 'greeter' service", () => {
 	describe("Test 'greeter.welcome' action", () => {
 
 		it("should return with 'Welcome'", () => {
-			expect(broker.call("greeter.welcome", { name: "Adam" })).resolves.toBe("Welcome, Adam");
+			expect(broker.call('greeter.welcome', { name: 'Adam' })).resolves.toBe('Welcome, Adam');
 		});
 
-		it("should reject an ValidationError", () => {
-			expect(broker.call("greeter.welcome")).rejects.toBeInstanceOf(Errors.ValidationError);
+		it('should reject an ValidationError', () => {
+			expect(broker.call('greeter.welcome')).rejects.toBeInstanceOf(Errors.ValidationError);
 		});
 
 	});

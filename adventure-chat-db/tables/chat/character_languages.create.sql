@@ -8,10 +8,10 @@ CREATE TABLE `chat`.`character_languages` (
   CONSTRAINT `character_languages_character_id`
     FOREIGN KEY (`character_id`)
     REFERENCES `chat`.`characters` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `character_languages_language_id`
     FOREIGN KEY (`language_id`)
     REFERENCES `chat`.`languages` (`id`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION);
