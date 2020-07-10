@@ -2,7 +2,7 @@
   "name": "adventure-chat-server",
   "version": "1.0.0",
   "description": "My Moleculer microservices project",
-  "precommit": [
+  "pre-commit": [
     "lint"
   ],
   "scripts": {
