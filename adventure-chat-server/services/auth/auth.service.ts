@@ -1,13 +1,13 @@
-"use strict";
-import { ServiceSchema } from "moleculer";
+'use strict';
+import { ServiceSchema } from 'moleculer';
 import {container} from './inversify.config';
-import {TYPES} from "./types";
-import AuthBusinessManager from "./business-managers/impl/AuthBusinessManager";
+import {TYPES} from './types';
+import AuthBusinessManager from './business-managers/impl/AuthBusinessManager';
 
 const authBusinessManager = container.get<AuthBusinessManager>(TYPES.AuthBusinessManager);
 
 const AuthService: ServiceSchema = {
-    name: "auth",
+    name: 'auth',
     actions: {
         login(ctx) {
             return new Promise((resolve, reject) => {
@@ -31,7 +31,7 @@ const AuthService: ServiceSchema = {
                    .then(result => resolve(result))
                    .catch(error => reject(error));
             });
-        }
+        },
     },
 
     /**

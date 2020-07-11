@@ -3,6 +3,7 @@ import ICampaignBusinessManager from '../ICampaignBusinessManager';
 import ICampaignDataManager from '../../data-managers/ICampaignDataManager';
 import {TYPES} from '../../types';
 import Campaign from '../../models/Campaign';
+import Errors from '../../constants';
 const randomstring = require('randomstring');
 
 @injectable()
@@ -16,14 +17,15 @@ export default class CampaignBusinessManager implements ICampaignBusinessManager
     }
 
     public protectedCreate(data: Campaign, userId: number): Promise<any> {
+        const campaign = data as Campaign;
         return new Promise((resolve, reject) => {
-            if (data.gm !== userId) {
+            if (campaign.gm !== userId) {
                 return reject({error: 'Cannot create campaign for another user'});
             }
 
-            data.code = randomstring.generate(10);
+            campaign.code = randomstring.generate(10);
 
-            this._campaignDataManager.create(data)
+            this._campaignDataManager.create(campaign)
                 .then((result: any) => resolve(result))
                 .catch((error: any) => reject(error));
         });
@@ -31,7 +33,7 @@ export default class CampaignBusinessManager implements ICampaignBusinessManager
 
     public protectedDelete(id: number, userId: number): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.verifyUser(id, userId, false)
+            this.verifyUser(id, userId)
                 .then(() => this._campaignDataManager.delete(id))
                 .then((result: any) => resolve(result))
                 .catch((error: any) => reject(error));
@@ -56,15 +58,16 @@ export default class CampaignBusinessManager implements ICampaignBusinessManager
     }
 
     public protectedUpdate(id: number, data: Campaign, userId: number): Promise<any> {
+        const campaign = data as Campaign;
         return new Promise((resolve, reject) => {
-            this.verifyUser(id, userId, true)
-                .then(() => this._campaignDataManager.update(id, data))
+            this.verifyUser(id, userId)
+                .then(() => this._campaignDataManager.update(id, campaign))
                 .then((result: any) => resolve(result))
                 .catch((error: any) => reject(error));
         });
     }
 
-    public verifyUser(campaignId: number, userId: number, checkCharacterUsers: boolean): Promise<any> {
+    public verifyUser(campaignId: number, userId: number): Promise<any> {
         return new Promise((resolve, reject) => {
            this._campaignDataManager
                .get(campaignId)
@@ -73,7 +76,7 @@ export default class CampaignBusinessManager implements ICampaignBusinessManager
                        return resolve();
                    }
 
-                   reject('You do not own this campaign.');
+                   reject({error: Errors.cannotAlter('Campaign')});
                });
         });
     }

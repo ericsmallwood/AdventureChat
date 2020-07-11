@@ -4,6 +4,10 @@ import {mysqlLogin} from './config';
 export let connection: any = null;
 
 function handleDisconnect() {
+    if(connection) {
+        connection.end();
+    }
+
     connection = mysql.createConnection(mysqlLogin);
 
     connection.connect((err: any) => {

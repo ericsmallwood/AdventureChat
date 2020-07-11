@@ -13,13 +13,13 @@ export class CampaignMySqlDao implements ICampaignDao {
                 values 
                 ('${data.name})', '${data.image}', '${data.gm}', '${data.code}'`;
 
-            connection.query(query, (err: any, result: any) => {
-                if(err) {
-                    return reject(err);
-                }
+                connection.query(query, (err: any, result: any) => {
+                    if(err) {
+                        return reject(err);
+                    }
 
-                resolve(result);
-            });
+                    resolve(result);
+                });
         });
     }
 
@@ -78,7 +78,7 @@ export class CampaignMySqlDao implements ICampaignDao {
                             return reject(err);
                         }
 
-                        resolve(result.length === 0 ? null : result[0]);
+                        resolve(result);
                     });
         });
     }
