@@ -1,0 +1,21 @@
+{
+  "name": "AdventureChat",
+  "version": "1.0.0",
+  "description": "Fantasy Language Chat Application for DnD games",
+  "main": "index.js",
+  "repository": "git@github.com:ericsmallwood/AdventureChat.git",
+  "author": "Eric Smallwood <smallwood.eric@ymail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "pre-commit": "^1.2.2"
+  },
+  "scripts": {
+    "server-lint": "cd adventure-chat-server && yarn lint --fix"
+  },
+  "pre-commit": [
+    "server-lint"
+  ],
+  "dependencies": {
+    "tslint": "^6.1.2"
+  }
+}

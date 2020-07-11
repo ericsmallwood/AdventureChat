@@ -1,41 +1,41 @@
-import IUsersDataManager from "../IUsersDataManager";
-import {inject, injectable} from "inversify";
-import {TYPES} from "../../types";
-import IUsersDao from "../../data-objects/IUsersDao";
+import {inject, injectable} from 'inversify';
+import IUsersDataManager from '../IUsersDataManager';
+import {TYPES} from '../../types';
+import IUsersDao from '../../data-objects/IUsersDao';
 
 @injectable()
 export class UsersDataManager implements IUsersDataManager {
     private _usersDao: IUsersDao;
 
-    constructor(@inject(TYPES.UsersDataObject) usersDao: IUsersDao) {
+    public constructor(@inject(TYPES.UsersDataObject) usersDao: IUsersDao) {
         this._usersDao = usersDao;
     }
 
-    create(data: any): Promise<any> {
+    public create(data: any): Promise<any> {
         return this._usersDao.create(data);
     }
 
-    delete(id: string): Promise<any> {
+    public delete(id: string): Promise<any> {
         return Promise.resolve(undefined);
     }
 
-    get(id: string): Promise<any> {
+    public get(id: string): Promise<any> {
         return this._usersDao.get(id);
     }
 
-    getMany(id: string): Promise<any> {
+    public getMany(id: string): Promise<any> {
         return Promise.resolve(undefined);
     }
 
-    update(id: string, data: any): Promise<any> {
+    public update(id: string, data: any): Promise<any> {
         return this._usersDao.update(id, data);
     }
 
-    getByUsername(username: string): Promise<any> {
+    public getByUsername(username: string): Promise<any> {
         return this._usersDao.getByUsername(username);
     }
 
-    getByConfirmationCode(confirmationCode: string): Promise<any> {
+    public getByConfirmationCode(confirmationCode: string): Promise<any> {
         return this._usersDao.getByConfirmationCode(confirmationCode);
     }
 

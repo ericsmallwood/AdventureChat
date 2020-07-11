@@ -1,13 +1,13 @@
-"use strict";
-import { ServiceSchema } from "moleculer";
+'use strict';
+import { ServiceSchema } from 'moleculer';
 import {container} from './inversify.config';
-import {TYPES} from "./types";
-import {UsersBusinessManager} from "./business-managers/impl/UsersBusinessManager";
+import {TYPES} from './types';
+import {UsersBusinessManager} from './business-managers/impl/UsersBusinessManager';
 
 const usersBusinessManager = container.get<UsersBusinessManager>(TYPES.UsersBusinessManager);
 
 const AccountsService: ServiceSchema = {
-    name: "accounts",
+    name: 'accounts',
     actions: {
         getByUsername(ctx) {
             return new Promise((resolve, reject) => {
@@ -50,7 +50,7 @@ const AccountsService: ServiceSchema = {
                     .then(result => resolve(result))
                     .catch(error => reject(error));
             });
-        }
+        },
     },
 
     /**

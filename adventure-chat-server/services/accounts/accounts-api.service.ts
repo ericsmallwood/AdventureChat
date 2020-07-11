@@ -1,10 +1,10 @@
-import { ServiceSchema } from "moleculer";
-import ApiGateway = require("moleculer-web");
-const E = require("moleculer-web").Errors;
+import { ServiceSchema } from 'moleculer';
+import ApiGateway = require('moleculer-web');
+const E = require('moleculer-web').Errors;
 
 
 const AccountsApiService: ServiceSchema = {
-    name: "accounts-api",
+    name: 'accounts-api',
 
     mixins: [ApiGateway],
 
@@ -13,27 +13,27 @@ const AccountsApiService: ServiceSchema = {
 
         // Global CORS settings for all routes
         cors: {
-            origin: "*",
+            origin: '*',
             methods: '*',
             allowedHeaders: '*',
         },
 
         routes: [
             {
-                path: "/get",
+                path: '/get',
                 authorization: true,
                 whitelist: [
-                    "**",
+                    '**',
                 ],
                 bodyParsers: {
-                    json: true
+                    json: true,
                 },
                 aliases: {
-                    "GET /:id"(req: any, res: any) {
-                        req.$ctx.call("accounts.getUser", req.$params.id)
+                    'GET /:id'(req: any, res: any) {
+                        req.$ctx.call('accounts.getUser', req.$params.id)
                             .then((result: any) => res.end(JSON.stringify(result)))
                             .catch((error: any) => {
-                                res.writeHead(404)
+                                res.writeHead(404);
                                 res.end(JSON.stringify({error: 'Incorrect Login'}));
                                 res.finish();
                             });
@@ -41,68 +41,66 @@ const AccountsApiService: ServiceSchema = {
                 },
             },
             {
-                path: "/update",
+                path: '/update',
                 authorization: true,
                 whitelist: [
-                    "**",
+                    '**',
                 ],
                 bodyParsers: {
-                    json: true
+                    json: true,
                 },
                 aliases: {
-                    "PUT /:id"(req: any, res: any) {
-                        req.$ctx.call("accounts.updateUser", {id: req.$params.id, user: req.$params.user})
+                    'PUT /:id'(req: any, res: any) {
+                        req.$ctx.call('accounts.updateUser', {id: req.$params.id, user: req.$params.user})
                             .then((result: any) => res.end(JSON.stringify(result)))
                             .catch((error: any) => {
-                                res.writeHead(404)
+                                res.writeHead(404);
                                 res.end(JSON.stringify({error: 'Incorrect Login'}));
                             });
                     },
                 },
             },
             {
-                path: "/register",
+                path: '/register',
                 whitelist: [
-                    "**",
+                    '**',
                 ],
                 bodyParsers: {
-                    json: true
+                    json: true,
                 },
                 aliases: {
-                    "POST /"(req: any, res: any) {
+                    'POST /'(req: any, res: any) {
                         let newUser: any;
-                        req.$ctx.call("accounts.createUser", {user: req.$params.user})
-                            .then((result: any) => {
-                                return req.$ctx.call("accounts.getUser", {id: result.insertId});
-                            })
+                        req.$ctx.call('accounts.createUser', {user: req.$params.user})
+                            .then((result: any) => req.$ctx.call('accounts.getUser', {id: result.insertId}))
                             .then((result: any) => {
                                 newUser = result;
-                                const userLogin = {id: result.id, password: req.$params.password}
+                                const userLogin = {id: result.id, password: req.$params.password};
 
-                                return req.$ctx.call("auth.createUserLogin", userLogin);
+                                return req.$ctx.call('auth.createUserLogin', userLogin);
                             })
                             .then(() => {
                                 res.end(JSON.stringify({data: 'OK'}));
                             })
                             .catch((error: any) => {
-                                res.writeHead(500)
+                                res.writeHead(500);
                                 res.end(JSON.stringify({error: error.message}));
                             });
                     },
                 },
             },
             {
-                path: "/confirmation",
+                path: '/confirmation',
                 whitelist: [
-                    "**",
+                    '**',
                 ],
                 bodyParsers: {
-                    json: true
+                    json: true,
                 },
                 aliases: {
-                    "PUT /"(req: any, res: any) {
+                    'PUT /'(req: any, res: any) {
                         let newUser: any;
-                        req.$ctx.call("accounts.confirmUser", {code: req.$params.code})
+                        req.$ctx.call('accounts.confirmUser', {code: req.$params.code})
                             .then(() => {
                                 res.end(JSON.stringify({data: 'OK'}));
                             })
@@ -116,12 +114,12 @@ const AccountsApiService: ServiceSchema = {
     },
     methods: {
         authorize(ctx, route, req, res) {
-            let auth = req.headers['authorization'];
+            const auth = req.headers.authorization;
 
-            if (auth && auth.startsWith("Bearer")) {
-                let token = auth.slice(7);
+            if (auth && auth.startsWith('Bearer')) {
+                const token = auth.slice(7);
 
-                ctx.call('auth.authorize', {token: token}).then((result:any) => {
+                ctx.call('auth.authorize', {token}).then((result: any) => {
                     if(result) {
                         ctx.meta.user = { id: 1 };
                         return Promise.resolve(ctx);
@@ -130,8 +128,8 @@ const AccountsApiService: ServiceSchema = {
                     return Promise.reject(new E.UnAuthorizedError(E.ERR_INVALID_TOKEN));
                 });
             }
-        }
-    }
+        },
+    },
 };
 
 export = AccountsApiService;

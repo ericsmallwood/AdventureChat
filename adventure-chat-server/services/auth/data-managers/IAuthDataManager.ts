@@ -1,4 +1,4 @@
-import IAuthBase from "../base/IAuthBase";
+import IAuthBase from '../base/IAuthBase';
 
 export default interface IAuthDataManager extends IAuthBase {
 

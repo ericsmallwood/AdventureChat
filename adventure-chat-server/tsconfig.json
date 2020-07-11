@@ -15,7 +15,7 @@
     "target": "es6",
     "baseUrl": "./",
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
+    "emitDecoratorMetadata": true
   },
   "exclude": [
     "node_modules"

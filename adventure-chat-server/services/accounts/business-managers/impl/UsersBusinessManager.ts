@@ -1,17 +1,17 @@
-import IUsersBusinessManger from "../IUsersBusinessManger";
-import {inject, injectable} from "inversify";
-import {TYPES} from "../../types";
-import IUsersDataManager from "../../data-managers/IUsersDataManager";
-import IEmailBusinessManager from "../IEmailBusinessManager";
-import {frontEndUrl} from "../../config";
-const randomstring = require("randomstring");
+import {inject, injectable} from 'inversify';
+import IUsersBusinessManger from '../IUsersBusinessManger';
+import {TYPES} from '../../types';
+import IUsersDataManager from '../../data-managers/IUsersDataManager';
+import IEmailBusinessManager from '../IEmailBusinessManager';
+import {frontEndUrl} from '../../config';
+const randomstring = require('randomstring');
 
 @injectable()
 export class UsersBusinessManager implements IUsersBusinessManger {
     private _userDataManager: IUsersDataManager;
     private _emailBusinessManager: IEmailBusinessManager;
 
-    constructor(
+    public constructor(
         @inject(TYPES.UsersDataManager) userDataManager: IUsersDataManager,
         @inject(TYPES.EmailBusinessManager) emailBusinessManager: IEmailBusinessManager
     ) {
@@ -19,7 +19,7 @@ export class UsersBusinessManager implements IUsersBusinessManger {
         this._emailBusinessManager = emailBusinessManager;
     }
 
-    create(data: any): Promise<any> {
+    public create(data: any): Promise<any> {
         return new Promise((resolve, reject) => {
             data.confirmation_code = randomstring.generate(7);
             let newUser: any;
@@ -44,27 +44,27 @@ export class UsersBusinessManager implements IUsersBusinessManger {
         });
     }
 
-    delete(id: string): Promise<any> {
+    public delete(id: string): Promise<any> {
         return Promise.resolve(undefined);
     }
 
-    get(id: string): Promise<any> {
+    public get(id: string): Promise<any> {
         return this._userDataManager.get(id);
     }
 
-    getMany(id: string): Promise<any> {
+    public getMany(id: string): Promise<any> {
         return Promise.resolve(undefined);
     }
 
-    update(id: string, data: any): Promise<any> {
+    public update(id: string, data: any): Promise<any> {
         return this._userDataManager.update(id, data);
     }
 
-    getByUsername(username: string): Promise<any> {
+    public getByUsername(username: string): Promise<any> {
         return this._userDataManager.getByUsername(username);
     }
 
-    confirmAccount(code: string): Promise<any> {
+    public confirmAccount(code: string): Promise<any> {
         return new Promise((resolve, reject) => {
             this.getByConfirmationCode(code)
                 .then((user: any) => {
@@ -76,7 +76,7 @@ export class UsersBusinessManager implements IUsersBusinessManger {
         });
     }
 
-    getByConfirmationCode(confirmationCode: string): Promise<any> {
+    public getByConfirmationCode(confirmationCode: string): Promise<any> {
         return this._userDataManager.getByConfirmationCode(confirmationCode);
     }
 

@@ -1,11 +1,11 @@
-import IUsersDao from "../IUsersDao";
-import {injectable} from "inversify";
+import {injectable} from 'inversify';
 import moment = require('moment');
+import IUsersDao from '../IUsersDao';
 import {connection} from '../../db';
 
 @injectable()
 export class UsersMySqlDao implements IUsersDao {
-    create(data: any): Promise<any> {
+    public create(data: any): Promise<any> {
         return new Promise((resolve, reject) => {
             const query = `
                 INSERT INTO users 
@@ -30,11 +30,11 @@ export class UsersMySqlDao implements IUsersDao {
         });
     }
 
-    delete(id: string): Promise<any> {
+    public delete(id: string): Promise<any> {
         return Promise.resolve(undefined);
     }
 
-    get(id: string): Promise<any> {
+    public get(id: string): Promise<any> {
         return new Promise((resolve, reject) => {
             connection.query(`SELECT * FROM users where id = '${id}' limit 1`, (err: any, result: any, fields: any) => {
                 if(err) {
@@ -43,12 +43,13 @@ export class UsersMySqlDao implements IUsersDao {
 
                 resolve(result.length === 0 ? null : result[0]);
             });
-        })
+        });
     }
 
-    getByUsername(username: string): Promise<any> {
+    public getByUsername(username: string): Promise<any> {
         return new Promise((resolve, reject) => {
-            connection.query(`SELECT * FROM users where username = '${username}' limit 1`, (err: any, result: any, fields: any) => {
+            const query = `SELECT * FROM users where username = '${username}' limit 1`;
+            connection.query(query, (err: any, result: any, fields: any) => {
                 if(err) {
                     return reject(err);
                 }
@@ -59,14 +60,14 @@ export class UsersMySqlDao implements IUsersDao {
 
                 resolve(result.length === 0 ? null : result[0]);
             });
-        })
+        });
     }
 
-    getMany(id: string): Promise<any> {
+    public getMany(id: string): Promise<any> {
         return Promise.resolve(undefined);
     }
 
-    update(id: string, data: any): Promise<any> {
+    public update(id: string, data: any): Promise<any> {
         return new Promise((resolve, reject) => {
             connection
                 .query(
@@ -91,7 +92,7 @@ export class UsersMySqlDao implements IUsersDao {
         });
     }
 
-    getByConfirmationCode(confirmationCode: string): Promise<any> {
+    public getByConfirmationCode(confirmationCode: string): Promise<any> {
         return new Promise((resolve, reject) => {
             connection
                 .query(
@@ -105,6 +106,6 @@ export class UsersMySqlDao implements IUsersDao {
                         }
                         resolve(result.length === 0 ? null : result[0]);
              });
-        })
+        });
     }
 }

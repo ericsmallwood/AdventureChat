@@ -1,8 +1,8 @@
-import { ServiceSchema } from "moleculer";
-import ApiGateway = require("moleculer-web");
+import { ServiceSchema } from 'moleculer';
+import ApiGateway = require('moleculer-web');
 
 const AuthApiService: ServiceSchema = {
-    name: "auth-api",
+    name: 'auth-api',
 
     mixins: [ApiGateway],
 
@@ -11,34 +11,35 @@ const AuthApiService: ServiceSchema = {
 
         // Global CORS settings for all routes
         cors: {
-            origin: "*",
+            origin: '*',
             methods: '*',
             allowedHeaders: '*',
         },
 
         routes: [
             {
-                path: "/login",
+                path: '/login',
                 whitelist: [
-                    "**",
+                    '**',
                 ],
                 aliases: {
-                    "POST /"(req: any, res: any) {
+                    'POST /'(req: any, res: any) {
                         let user: any;
                         req.$ctx
                             .call('accounts.getByUsername', {username: req.$params.username})
                             .then((result: any) => {
                                 user = result;
-                                return req.$ctx.call('auth.login', {username: result.id, password: req.$params.password})
+                                return req.$ctx
+                                    .call('auth.login', {username: result.id, password: req.$params.password});
                             })
                             .then((result: any) => {
-                                res.end(JSON.stringify({user: user, token: result.token}));
+                                res.end(JSON.stringify({user, token: result.token}));
                             })
                             .catch((error: any) => {
-                                res.writeHead(400)
+                                res.writeHead(400);
                                 res.end(JSON.stringify({error: 'Incorrect Login'}));
-                            })
-                    }
+                            });
+                    },
                 },
             },
 

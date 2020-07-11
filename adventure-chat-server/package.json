@@ -27,11 +27,10 @@
     "@typescript-eslint/parser": "^2.12.0",
     "eslint": "^6.8.0",
     "eslint-plugin-import": "^2.19.1",
-    "eslint-plugin-prefer-arrow": "^1.1.7",
+    "eslint-plugin-prefer-arrow": "^1.2.1",
     "jest": "^23.6.0",
     "jest-cli": "^23.6.0",
     "moleculer-repl": "^0.5.3",
-    "pre-commit": "^1.2.2",
     "ts-jest": "^23.10.5",
     "ts-node": "^7.0.1",
     "typescript": "^3.2.2"
