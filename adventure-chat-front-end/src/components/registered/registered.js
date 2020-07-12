@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
 export default function Registered () {
-    return (
-      <div>
+  return (
+    <div>
           Thanks for registering! You should receive a confirmation email soon!
-      </div>
-    );
+    </div>
+  );
 }

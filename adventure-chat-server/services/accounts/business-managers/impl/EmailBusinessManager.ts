@@ -16,5 +16,4 @@ export default class EmailBusinessManager implements IEmailBusinessManager {
     public send(recipient: string, subject: string, text: string): Promise<any> {
         return this._emailDataManager.send(recipient, subject, text);
     }
-
 }

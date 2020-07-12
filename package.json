@@ -10,10 +10,12 @@
     "pre-commit": "^1.2.2"
   },
   "scripts": {
-    "server-lint": "cd adventure-chat-server && yarn lint --fix"
+    "server-lint": "cd adventure-chat-server && yarn lint --fix",
+    "front-end-lint": "cd adventure-chat-front-end && yarn lint --fix"
   },
   "pre-commit": [
-    "server-lint"
+    "server-lint",
+    "front-end-lint"
   ],
   "dependencies": {
     "tslint": "^6.1.2"
