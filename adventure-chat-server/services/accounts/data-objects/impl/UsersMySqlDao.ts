@@ -30,13 +30,21 @@ export class UsersMySqlDao implements IUsersDao {
         });
     }
 
-    public delete(id: string): Promise<any> {
-        return Promise.resolve(undefined);
+    public delete(id: number): Promise<any> {
+        return new Promise((resolve, reject) => {
+            connection.query(`DELETE FROM users where id=${id} limit 1`, (err: any, result: any, fields: any) => {
+                if(err) {
+                    return reject(err);
+                }
+
+                resolve(result);
+            });
+        });
     }
 
-    public get(id: string): Promise<any> {
+    public get(id: number): Promise<any> {
         return new Promise((resolve, reject) => {
-            connection.query(`SELECT * FROM users where id = '${id}' limit 1`, (err: any, result: any, fields: any) => {
+            connection.query(`SELECT * FROM users where id=${id} limit 1`, (err: any, result: any, fields: any) => {
                 if(err) {
                     return reject(err);
                 }
@@ -63,11 +71,11 @@ export class UsersMySqlDao implements IUsersDao {
         });
     }
 
-    public getMany(id: string): Promise<any> {
-        return Promise.resolve(undefined);
+    public getMany(id: number): Promise<any> {
+        return Promise.reject(undefined);
     }
 
-    public update(id: string, data: any): Promise<any> {
+    public update(id: number, data: any): Promise<any> {
         return new Promise((resolve, reject) => {
             connection
                 .query(
@@ -80,14 +88,14 @@ export class UsersMySqlDao implements IUsersDao {
                             email='${data.email}',
                             username='${data.username}',
                             confirmed=1
-                        where id = '${id}' 
+                        where id=${id} 
                     `,
                     (err: any, result: any, fields: any) => {
                         if(err) {
                             return reject(err);
                         }
 
-                        resolve(result.length === 0 ? null : result[0]);
+                        resolve(result);
                     });
         });
     }

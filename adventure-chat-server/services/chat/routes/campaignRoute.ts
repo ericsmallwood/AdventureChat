@@ -7,20 +7,22 @@ export default {
         '**',
     ],
     aliases: {
-        'POST /'(req: any, res: any) {
+        'POST /:id'(req: any, res: any) {
+            console.log('create campaign route called');
             req.$ctx
                 .call('chat.createCampaign', {campaign: req.$params.campaign, userId: req.$ctx.meta.userId})
                 .then((campaign: Campaign) => {
                     res.end(JSON.stringify({campaign}));
                 })
-                .catch(() => {
+                .catch((error: any) => {
                     res.writeHead(400);
-                    res.end(JSON.stringify({error: 'Incorrect Login'}));
+                    res.end(JSON.stringify({error: error.message}));
                 });
         },
         'PUT /:id'(req: any, res: any) {
+            console.log('update campaign route called');
             req.$ctx
-                .call('create.editCampaign', {
+                .call('chat.editCampaign', {
                     id: req.$params.id,
                     campaign: req.$params.campaign,
                     userId: req.$ctx.meta.userId,
@@ -28,42 +30,44 @@ export default {
                 .then(() => {
                     res.end(JSON.stringify({response: 'OK'}));
                 })
-                .catch(() => {
+                .catch((error: any) => {
                     res.writeHead(400);
-                    res.end(JSON.stringify({error: 'Incorrect Login'}));
+                    res.end(JSON.stringify({error: error.message}));
                 });
         },
         'DELETE /:id'(req: any, res: any) {
+            console.log('deleting campaign');
             req.$ctx
-                .call('create.deleteCampaign', {id: req.$params.id})
+                .call('chat.deleteCampaign', {id: req.$params.id})
                 .then(() => {
                     res.end();
                 })
-                .catch(() => {
+                .catch((error: any) => {
                     res.writeHead(400);
-                    res.end(JSON.stringify({error: 'Incorrect Login'}));
+                    res.end(JSON.stringify({error: error.message}));
                 });
         },
         'GET /:id'(req: any, res: any) {
+
             req.$ctx
-                .call('create.getCampaign', {id: req.$params.id})
+                .call('chat.getCampaign', {id: req.$params.id})
                 .then((result: any) => {
                     res.end(JSON.stringify(result));
                 })
-                .catch(() => {
+                .catch((error: any) => {
                     res.writeHead(400);
-                    res.end(JSON.stringify({error: 'Incorrect Login'}));
+                    res.end(JSON.stringify({error: error.message}));
                 });
         },
         'GET /all/:id'(req: any, res: any) {
             req.$ctx
-                .call('create.getCampaigns', {id: req.$params.id})
+                .call('chat.getCampaigns', {id: req.$params.id})
                 .then((result: any) => {
                     res.end(JSON.stringify(result));
                 })
-                .catch(() => {
+                .catch((error: any) => {
                     res.writeHead(400);
-                    res.end(JSON.stringify({error: 'Incorrect Login'}));
+                    res.end(JSON.stringify({error: error.message}));
                 });
         },
     },

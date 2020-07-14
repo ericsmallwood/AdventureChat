@@ -18,6 +18,7 @@ export default class CampaignBusinessManager implements ICampaignBusinessManager
 
     public protectedCreate(data: Campaign, userId: number): Promise<any> {
         const campaign = data as Campaign;
+        console.log('test', campaign);
         return new Promise((resolve, reject) => {
             if (campaign.gm !== userId) {
                 return reject({error: 'Cannot create campaign for another user'});

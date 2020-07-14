@@ -7,6 +7,7 @@ const campaignBusinessManager = container.get<CampaignBusinessManager>(TYPES.Cam
 export default {
     createCampaign(ctx: any) {
         return new Promise((resolve, reject) => {
+            console.log('test2', ctx.params);
             campaignBusinessManager
                 .protectedCreate(ctx.params.campaign, ctx.params.userId)
                 .then(result => resolve(result))

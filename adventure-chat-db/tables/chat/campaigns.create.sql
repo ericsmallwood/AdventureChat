@@ -1,4 +1,4 @@
-CREATE TABLE `chat`.`campaign` (
+CREATE TABLE `chat`.`campaigns` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(256) NOT NULL,
   `image` VARCHAR(256) NULL,

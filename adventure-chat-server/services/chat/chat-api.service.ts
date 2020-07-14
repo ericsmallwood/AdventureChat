@@ -25,16 +25,16 @@ const ChatApiService: ServiceSchema = {
     methods: {
         authorize(ctx, route, req, res) {
             const auth = req.headers.authorization;
-
             if (auth && auth.startsWith('Bearer')) {
                 const token = auth.slice(7);
-
                 ctx.call('auth.authorize', {token}).then((result: any) => {
                     if(result) {
-                        ctx.meta.userId = result.id;
+                        ctx.meta.userId = result.userid;
+                        console.log('authorized');
                         return Promise.resolve(ctx);
                     }
 
+                    console.log('not authorized');
                     return Promise.reject(new E.UnAuthorizedError(E.ERR_INVALID_TOKEN));
                 });
             }

@@ -15,19 +15,19 @@ export class UsersDataManager implements IUsersDataManager {
         return this._usersDao.create(data);
     }
 
-    public delete(id: string): Promise<any> {
-        return Promise.resolve(undefined);
+    public delete(id: number): Promise<any> {
+        return this._usersDao.delete(id);
     }
 
-    public get(id: string): Promise<any> {
+    public get(id: number): Promise<any> {
         return this._usersDao.get(id);
     }
 
-    public getMany(id: string): Promise<any> {
+    public getMany(id: number): Promise<any> {
         return Promise.resolve(undefined);
     }
 
-    public update(id: string, data: any): Promise<any> {
+    public update(id: number, data: any): Promise<any> {
         return this._usersDao.update(id, data);
     }
 

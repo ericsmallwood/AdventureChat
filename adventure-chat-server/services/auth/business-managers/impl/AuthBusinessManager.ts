@@ -44,6 +44,7 @@ export default class AuthBusinessManager implements IAuthBusinessManager {
     }
 
     public authorize(token: string): Promise<any> {
+        console.log(token);
         return this._authDataManager.authorize(token);
     }
 
