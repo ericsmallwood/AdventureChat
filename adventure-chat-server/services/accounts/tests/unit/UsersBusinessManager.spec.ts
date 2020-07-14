@@ -9,7 +9,6 @@ import Errors from '../../constants';
 describe('UsersBusinessManager', async () => {
     const usersBusinessManager = container.get<UsersBusinessManager>(TYPES.UsersBusinessManager);
 
-
     describe("Test 'create'", () => {
         it('Should send email and create confirmation code', async () => {
             const spy = jest.spyOn(usersBusinessManager, 'sendEmail');
