@@ -4,7 +4,7 @@ import userActions from './actions/userActions';
 
 const AccountsService: ServiceSchema = {
     name: 'accounts',
-    actions: userActions(false),
+    actions: userActions,
 
     /**
      * Events

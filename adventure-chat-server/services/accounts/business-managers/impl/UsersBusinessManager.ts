@@ -5,6 +5,7 @@ import IUsersDataManager from '../../data-managers/IUsersDataManager';
 import IEmailBusinessManager from '../IEmailBusinessManager';
 import {frontEndUrl} from '../../config';
 import User from '../../models/user';
+import Errors from '../../constants';
 const randomstring = require('randomstring');
 
 @injectable()
@@ -22,10 +23,16 @@ export class UsersBusinessManager implements IUsersBusinessManger {
         this._emailBusinessManager = emailBusinessManager;
     }
 
-    public create(data: any): Promise<any> {
+    public create(data: User): Promise<any> {
         return new Promise((resolve, reject) => {
+            if (!data.firstname || !data.lastname || !data.email || !data.username) {
+                return reject(Errors.MISSING_PARAMETERS);
+            }
+
+            delete data.id;
             data.confirmation_code = randomstring.generate(this.codeLength);
             let newUser: any;
+
             this._userDataManager
                 .create(data)
                 .then((result: any) => {
@@ -53,9 +60,12 @@ export class UsersBusinessManager implements IUsersBusinessManger {
 
     public update(id: number, data: any): Promise<any> {
         return new Promise((resolve, reject) => {
+            delete data.confirmation_code;
+            data.id = id;
+
             this._userDataManager
                 .update(id, data)
-                .then(() => this._userDataManager.get(id))
+                .then(() => this._userDataManager.get(data.id))
                 .then((user: User) => resolve(user))
                 .catch((error: any) => reject(error));
         });
@@ -72,7 +82,7 @@ export class UsersBusinessManager implements IUsersBusinessManger {
                     user.confirmed = 1;
                     return this.update(user.id, user);
                 })
-                .then(() => resolve())
+                .then((result: any) => resolve(result))
                 .catch((error: any) => reject(error));
         });
     }

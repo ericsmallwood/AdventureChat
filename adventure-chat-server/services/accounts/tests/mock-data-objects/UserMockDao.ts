@@ -5,18 +5,17 @@ import User from '../../models/user';
 @injectable()
 export default class UserMockDao implements IUsersDao {
     public users: User[] = [];
-    public currId = 0;
 
     public create(data: User): Promise<any> {
-        return new Promise((resolve, reject) => {
-            data.id = ++this.currId;
+        return new Promise(resolve => {
+            data.id = this.users.length + 1;
             this.users.push(data);
             resolve(data);
         });
     }
 
     public delete(id: number): Promise<any> {
-        return new Promise((resolve, reject) => {
+        return new Promise(resolve => {
             const index = this.users.findIndex(user => user.id === id);
             this.users.splice(index, 1);
             resolve('Ok');
@@ -24,21 +23,21 @@ export default class UserMockDao implements IUsersDao {
     }
 
     public get(id: number): Promise<any> {
-        return new Promise((resolve, reject) => {
+        return new Promise(resolve => {
             const user: User = this.users.find(u => u.id === id);
             resolve(user);
         });
     }
 
     public getByConfirmationCode(confirmationCode: string): Promise<any> {
-        return new Promise((resolve, reject) => {
+        return new Promise(resolve => {
             const user: User = this.users.find(u => u.confirmation_code === confirmationCode);
             resolve(user);
         });
     }
 
     public getByUsername(username: string): Promise<any> {
-        return new Promise((resolve, reject) => {
+        return new Promise(resolve => {
             const user: User = this.users.find(u => u.username === username);
             resolve(user);
         });
