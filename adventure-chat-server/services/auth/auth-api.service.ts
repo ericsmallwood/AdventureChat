@@ -24,9 +24,8 @@ const AuthApiService: ServiceSchema = {
                 ],
                 aliases: {
                     'POST /'(req: any, res: any) {
-
                         req.$ctx
-                            .call('auth.login', {username: req.$params.password, password: req.$params.password})
+                            .call('auth.login', {username: req.$params.username, password: req.$params.password})
                             .then((result: any) => res.end(JSON.stringify(result)))
                             .catch((error: any) => {
                                 res.writeHead(400);

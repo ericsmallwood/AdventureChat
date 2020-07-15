@@ -13,9 +13,9 @@ describe("Test 'greeter' service", () => {
     afterAll(() => broker.stop());
 
     describe("Test 'auth.login'", () => {
-       it('should call accounts service', async () => {
+       it('should pass', async () => {
            const spy = jest.spyOn(broker,  'call');
-           await broker.call('auth.login', {username: 'eric', password: 'nanjing1'});
+           await broker.call('auth.login', {username: 'eric', password: 'nanjing1'}); // User must be confirmed
            expect(spy).toBeCalled();
        });
     });

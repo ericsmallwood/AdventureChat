@@ -57,6 +57,7 @@ export class UsersMySqlDao implements IUsersDao {
     public getByUsername(username: string): Promise<any> {
         return new Promise((resolve, reject) => {
             const query = `SELECT * FROM users where username = '${username}' limit 1`;
+            console.log(query);
             connection.query(query, (err: any, result: any, fields: any) => {
                 if(err) {
                     return reject(err);

@@ -23,40 +23,61 @@ describe('AuthBusinessManager', () => {
         .mockImplementation((userLogin: any) => Promise.resolve());
 
     describe("test 'login'", () => {
+        const user: any = {
+            id: 1,
+            firstname: 'Eric',
+            lastname: 'S',
+            confirmed: true,
+        };
+
+        it('Should fail if the user is not confirmed', async () => {
+            user.confirmed = false;
+            try {
+                await authBusinessManager.login(user, 'test');
+                throw new Error(Errors.SHOULD_FAIL);
+            } catch (error) {
+                expect(error).toBe(Errors.NOT_CONFIRMED);
+            }
+        });
+
         it('should get hash of password', async () => {
+            user.confirmed = true;
             const spy = jest.spyOn(authBusinessManager.crypto, 'createHash');
-            await authBusinessManager.login(1, 'test');
+            await authBusinessManager.login(user, 'test');
 
             expect(spy).toBeCalled();
         });
 
         it('should update token', async () => {
+            user.confirmed = true;
             const spy = jest.spyOn(authBusinessManager, 'updateToken');
-            await authBusinessManager.login(1, 'test');
+            await authBusinessManager.login(user, 'test');
 
             expect(spy).toBeCalled();
         });
 
         it('should throw error if missing parameters', async () => {
-            authBusinessManager.login(null, 'abcde')
-                .then(() => {
-                    throw new Error(Errors.SHOULD_FAIL);
-                })
-                .catch(error => expect(error).toBeTruthy());
+            user.confirmed = true;
+            try {
+                await authBusinessManager.login(null, 'abcde');
+                throw new Error(Errors.SHOULD_FAIL);
+            } catch (error) {
+                expect(error).toBeTruthy();
+            }
 
-            authBusinessManager.login(1, null)
-                .then(() => {
-                    throw new Error(Errors.SHOULD_FAIL);
-                })
-                .catch(error => expect(error).toBeTruthy());
+            try {
+                await authBusinessManager.login(user, null);
+                throw new Error(Errors.SHOULD_FAIL);
+            } catch (error) {
+                expect(error).toBeTruthy();
+            }
 
-            authBusinessManager.login(1, 'abcde')
-                .then(result => {
-                    expect(result).toBeTruthy();
-                })
-                .catch(error => {
-                    throw new Error(Errors.SHOULD_SUCCEED);
-                });
+            try {
+                const result = await authBusinessManager.login(user, 'abcde');
+                expect(result).toBeTruthy();
+            } catch (error) {
+                throw new Error(Errors.SHOULD_SUCCEED);
+            }
         });
     });
 

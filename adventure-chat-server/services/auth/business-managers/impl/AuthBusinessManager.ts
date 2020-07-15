@@ -3,6 +3,7 @@ import {v4 as uuidv4} from 'uuid';
 import IAuthBusinessManager from '../IAuthBusinessManager';
 import IAuthDataManager from '../../data-managers/IAuthDataManager';
 import {TYPES} from '../../types';
+import Errors from '../../constants';
 const crypto = require('crypto');
 
 
@@ -19,6 +20,10 @@ export default class AuthBusinessManager implements IAuthBusinessManager {
 
     public login(user: any, password: string): Promise<any> {
         return new Promise((resolve, reject) => {
+            if(!user.confirmed) {
+                return reject(Errors.NOT_CONFIRMED);
+            }
+
             const hash = this.crypto.createHash('sha256').update(password).digest('hex');
             let user_login: any;
             this._authDataManager
