@@ -24,7 +24,7 @@ export default class AuthMySqlDao implements IAuthDao {
     public login(userid: number, hash: string): Promise<any> {
         return new Promise((resolve, reject) => {
             const query = `
-                SELECT * FROM user_logins where hash = '${hash}' and userid = ${userid} and confirmed = 1 limit 1
+                SELECT * FROM user_logins where hash = '${hash}' and userid = ${userid} limit 1
             `;
             connection.query(query, (err: any, result: any) => {
                 if(err) {

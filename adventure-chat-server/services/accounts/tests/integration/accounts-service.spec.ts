@@ -3,9 +3,9 @@
 import { ServiceBroker, Errors } from 'moleculer';
 import AccountsService from '../../accounts.service';
 
-describe("Test 'greeter' service", () => {
+describe("Test 'accounts' service", () => {
 	const broker = new ServiceBroker();
-	broker.createService({...AccountsService});
+	broker.createService(AccountsService);
 
 	beforeAll(() => broker.start());
 	afterAll(() => broker.stop());

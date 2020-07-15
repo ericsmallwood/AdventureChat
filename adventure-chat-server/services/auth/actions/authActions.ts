@@ -4,12 +4,14 @@ import {TYPES} from '../types';
 
 const authBusinessManager = container.get<AuthBusinessManager>(TYPES.AuthBusinessManager);
 
-export default {
+export default  {
     login(ctx: any) {
         return new Promise((resolve, reject) => {
-            authBusinessManager.login(ctx.params.username, ctx.params.password)
-                .then(result => resolve(result))
-                .catch(error => reject(error));
+            ctx.call('accounts.getByUsername', {username: ctx.params.username})
+                .then((result: any) => authBusinessManager.login(result, ctx.params.password))
+                .then((result: any) => resolve(result))
+                .catch((error: any) => reject(error));
+
         });
     },
     authorize(ctx: any) {

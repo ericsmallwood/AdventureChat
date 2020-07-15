@@ -8,7 +8,8 @@ const crypto = require('crypto');
 
 @injectable()
 export default class AuthBusinessManager implements IAuthBusinessManager {
-    private _authDataManager: IAuthDataManager;
+    public _authDataManager: IAuthDataManager;
+    public crypto = crypto;
 
     public constructor(
         @inject(TYPES.AuthDataObject) authDataManager: IAuthDataManager
@@ -16,18 +17,18 @@ export default class AuthBusinessManager implements IAuthBusinessManager {
         this._authDataManager = authDataManager;
     }
 
-    public login(userid: number, password: string): Promise<any> {
+    public login(user: any, password: string): Promise<any> {
         return new Promise((resolve, reject) => {
-            const hash = crypto.createHash('sha256').update(password).digest('hex');
-            let user: any;
+            const hash = this.crypto.createHash('sha256').update(password).digest('hex');
+            let user_login: any;
             this._authDataManager
-                .login(userid, hash)
+                .login(user.id, hash)
                 .then(result => {
-                    user = result;
-                    return this.updateToken(userid);
+                    user_login = result;
+                    return this.updateToken(user.id);
                 })
                 .then(result => {
-                    resolve({id: user.id, ...result});
+                    resolve({user, result});
                 })
                 .catch(error => reject(error));
         });
@@ -44,11 +45,10 @@ export default class AuthBusinessManager implements IAuthBusinessManager {
     }
 
     public authorize(token: string): Promise<any> {
-        console.log(token);
         return this._authDataManager.authorize(token);
     }
 
-    public createUserLogin(id: string, password: string): Promise<any> {
+    public createUserLogin(id: number, password: string): Promise<any> {
         const hash = crypto.createHash('sha256').update(password).digest('hex');
         const token = uuidv4();
         return new Promise((resolve, reject) => {

@@ -6,7 +6,7 @@ export const connection: any = mysql.createConnection(mysqlLogin);
 function handleDisconnect() {
     connection.connect((err: any) => {
         if(err) {
-            console.log('error when connecting to db:', err);
+            console.log('error when connecting to db1:', err);
             setTimeout(handleDisconnect, 2000);
         }
     });

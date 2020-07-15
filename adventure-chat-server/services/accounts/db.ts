@@ -12,7 +12,7 @@ function handleDisconnect() {
 
     connection.connect((err: any) => {
         if(err) {
-            console.log('error when connecting to db:', err);
+            console.log('error when connecting to db3:', err);
             setTimeout(handleDisconnect, 2000);
         }
     });

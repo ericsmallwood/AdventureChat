@@ -24,20 +24,13 @@ const AuthApiService: ServiceSchema = {
                 ],
                 aliases: {
                     'POST /'(req: any, res: any) {
-                        let user: any;
+
                         req.$ctx
-                            .call('accounts.getByUsername', {username: req.$params.username})
-                            .then((result: any) => {
-                                user = result;
-                                return req.$ctx
-                                    .call('auth.login', {username: result.id, password: req.$params.password});
-                            })
-                            .then((result: any) => {
-                                res.end(JSON.stringify({user, token: result.token}));
-                            })
+                            .call('auth.login', {username: req.$params.password, password: req.$params.password})
+                            .then((result: any) => res.end(JSON.stringify(result)))
                             .catch((error: any) => {
                                 res.writeHead(400);
-                                res.end(JSON.stringify({error: 'Incorrect Login'}));
+                                res.end(JSON.stringify({error: error.message}));
                             });
                     },
                 },
