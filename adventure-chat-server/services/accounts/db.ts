@@ -25,6 +25,11 @@ function handleDisconnect() {
             throw err;
         }
     });
+
+    setInterval(() => {
+        console.log('mysql heartbeat accounts service');
+        connection.query('SELECT 1');
+    }, 60000);
 }
 
 handleDisconnect();

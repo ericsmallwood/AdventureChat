@@ -8,7 +8,7 @@ const randomstring = require('randomstring');
 
 @injectable()
 export default class CampaignBusinessManager implements ICampaignBusinessManager {
-    private _campaignDataManager: ICampaignDataManager;
+    public _campaignDataManager: ICampaignDataManager;
 
     public constructor(
         @inject(TYPES.CampaignDataManager) campaignDataManager: ICampaignDataManager
@@ -17,19 +17,29 @@ export default class CampaignBusinessManager implements ICampaignBusinessManager
     }
 
     public protectedCreate(data: Campaign, userId: number): Promise<any> {
-        const campaign = data as Campaign;
-        console.log('test', campaign);
         return new Promise((resolve, reject) => {
-            if (campaign.gm !== userId) {
-                return reject({error: 'Cannot create campaign for another user'});
+            if (data.gm !== userId) {
+                return reject(Errors.NOT_AUTHORIZED);
             }
 
-            campaign.code = randomstring.generate(10);
+            if (!data.name || data.name.replace(/ /g, '') === '') {
+                return reject(Errors.MISSING_PARAMETERS);
+            }
 
-            this._campaignDataManager.create(campaign)
-                .then((result: any) => resolve(result))
+            delete data.id;
+            data.code = this.generateCode();
+
+            this._campaignDataManager.create(data)
+                .then((result: any) => this.get(result.insertedId))
+                .then((result: any) => {
+                    resolve(result);
+                })
                 .catch((error: any) => reject(error));
         });
+    }
+
+    public generateCode(): string {
+        return randomstring.generate(10);
     }
 
     public protectedDelete(id: number, userId: number): Promise<any> {
@@ -59,10 +69,17 @@ export default class CampaignBusinessManager implements ICampaignBusinessManager
     }
 
     public protectedUpdate(id: number, data: Campaign, userId: number): Promise<any> {
-        const campaign = data as Campaign;
         return new Promise((resolve, reject) => {
+            if(data.gm || data.code || data.id) {
+                return reject(Errors.ILLEGAL_FIELD);
+            }
+
+            if(!data.name) {
+                return reject(Errors.cannotBeEmpty('name'));
+            }
+
             this.verifyUser(id, userId)
-                .then(() => this._campaignDataManager.update(id, campaign))
+                .then(() => this._campaignDataManager.update(id, data))
                 .then((result: any) => resolve(result))
                 .catch((error: any) => reject(error));
         });

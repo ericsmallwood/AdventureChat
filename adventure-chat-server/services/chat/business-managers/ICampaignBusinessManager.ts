@@ -5,4 +5,5 @@ import Campaign from '../models/Campaign';
 export default interface ICampaignBusinessManager extends IProtectedBase<Campaign> {
     get(id: number): Promise<any>;
     getMany(id: number): Promise<any>;
+    generateCode(): string;
 }
