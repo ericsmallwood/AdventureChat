@@ -8,7 +8,7 @@ import Errors from '../../constants';
 
 @injectable()
 export default class CharacterBusinessManager implements ICharacterBusinessManager {
-    private _characterDataManager: ICharacterDataManager;
+    public _characterDataManager: ICharacterDataManager;
 
     public constructor(
         @inject(TYPES.CharacterDataManager) characterDataManager: ICharacterDataManager
@@ -27,11 +27,11 @@ export default class CharacterBusinessManager implements ICharacterBusinessManag
     public protectedCreate(data: Character, userId: number): Promise<any> {
         return new Promise((resolve, reject) => {
             if (!data.user_id || !data.first_name) {
-                return reject({error: Errors.MISSING_PARAMETERS});
+                return reject(Errors.MISSING_PARAMETERS);
             }
 
            if (data.user_id !== userId) {
-               return reject({error: Errors.cannotAlter('Character')});
+               return reject(Errors.NOT_AUTHORIZED);
            }
 
            data.type = CharacterType.Character;
@@ -53,10 +53,18 @@ export default class CharacterBusinessManager implements ICharacterBusinessManag
 
     public protectedUpdate(id: number, data: Character, userId: number): Promise<any> {
         return new Promise((resolve, reject) => {
-            this.verifyUser(id, userId)
+            if (data.id || data.user_id || data.type) {
+                return reject(Errors.ILLEGAL_FIELD);
+            }
+
+            if (!data.first_name) {
+                return reject(Errors.MISSING_PARAMETERS);
+            }
+
+            {this.verifyUser(id, userId)
                 .then(() => this._characterDataManager.delete(id))
                 .then(() => resolve())
-                .catch((error: any) => reject(error));
+                .catch((error: any) => reject(error));}
         });
     }
 
@@ -69,7 +77,7 @@ export default class CharacterBusinessManager implements ICharacterBusinessManag
                         return resolve();
                     }
 
-                    reject({error: Errors.cannotAlter('Character')});
+                    reject(Errors.cannotAlter('Character'));
                 });
         });
     }

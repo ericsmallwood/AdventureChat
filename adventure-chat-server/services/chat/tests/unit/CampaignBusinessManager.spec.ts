@@ -4,21 +4,22 @@ import {TYPES} from '../../types';
 import Campaign from '../../models/Campaign';
 import Errors from '../../constants';
 
-describe('AuthBusinessManager', () => {
+describe('CampaignBusinessManager', () => {
     const campaignBusinessManager = container.get<CampaignBusinessManager>(TYPES.CampaignBusinessManager);
-    const verifySpy = jest.spyOn(campaignBusinessManager, 'verifyUser');
     const getSpy = jest.spyOn(campaignBusinessManager, 'get');
     const dmCreateSpy = jest.spyOn(campaignBusinessManager._campaignDataManager, 'create');
-
+    const verifySpy = jest.spyOn(campaignBusinessManager, 'verifyUser');
 
     beforeEach(() => {
         jest.clearAllMocks();
         getSpy.mockImplementation((id: number) => Promise.resolve({id}));
         dmCreateSpy.mockImplementation((campaign: Campaign) => Promise.resolve(campaign));
-        verifySpy.mockImplementation(() => Promise.resolve());
+        verifySpy.mockImplementation((id: number, userId: number) => Promise.resolve());
+
     });
 
     describe('Test "protected Create"', () => {
+        verifySpy.mockImplementation(() => Promise.resolve());
         it('Should verify user', async () => {
             const campaign = new Campaign();
             campaign.gm = 1;
@@ -30,6 +31,7 @@ describe('AuthBusinessManager', () => {
                 expect(error).toBe(Errors.NOT_AUTHORIZED);
             }
         });
+
 
         it('Should create a code', async () => {
             const spy = jest.spyOn(campaignBusinessManager, 'generateCode');
@@ -101,6 +103,10 @@ describe('AuthBusinessManager', () => {
     });
 
     describe('Test "protectedUpdate"', () => {
+        jest
+            .spyOn(campaignBusinessManager._campaignDataManager, 'update')
+            .mockImplementation((id: number, data: Campaign) => Promise.resolve());
+
         it('Should not allow id updates', async () => {
             const campaign = new Campaign();
             campaign.name = 'Test';
@@ -171,6 +177,10 @@ describe('AuthBusinessManager', () => {
     });
 
     describe('Test "protectedDelete"', () => {
+        jest
+            .spyOn(campaignBusinessManager._campaignDataManager, 'delete', )
+            .mockImplementation((id: number) => Promise.resolve());
+
         it('Should  call verify', async () => {
             const campaign = new Campaign();
             campaign.name = 'Test';
@@ -179,4 +189,24 @@ describe('AuthBusinessManager', () => {
             expect(verifySpy).toBeCalledTimes(1);
         });
     });
+
+    describe('Test "Verify"', () => {
+        it('should reject if userIds do not match', async () => {
+            // Need a local one in this instance because of the way Jest mock implementations work,
+            // Once defined the original functionality doesnt seem to be abel to be restored
+            const localCampaignBusinessManager = container.get<CampaignBusinessManager>(TYPES.CampaignBusinessManager);
+            jest
+                .spyOn(localCampaignBusinessManager._campaignDataManager, 'get')
+                .mockImplementation((id: number) => Promise.resolve({gm: 1}));
+
+            try {
+                await localCampaignBusinessManager.verifyUser(1, 12);
+                throw new Error(Errors.SHOULD_FAIL);
+            } catch (error) {
+                expect(error).toBe(Errors.cannotAlter('Campaign'));
+            }
+        });
+    });
+
+
 });

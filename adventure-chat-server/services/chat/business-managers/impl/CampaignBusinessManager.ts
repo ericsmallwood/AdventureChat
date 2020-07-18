@@ -94,7 +94,7 @@ export default class CampaignBusinessManager implements ICampaignBusinessManager
                        return resolve();
                    }
 
-                   reject({error: Errors.cannotAlter('Campaign')});
+                   reject(Errors.cannotAlter('Campaign'));
                });
         });
     }
