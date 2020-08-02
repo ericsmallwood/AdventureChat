@@ -6,7 +6,7 @@ import Dialog from '@material-ui/core/Dialog';
 import { AccountService } from '../../services/account.service';
 import { loadUser, setToken, toggleLoggedIn } from '../../redux/actions';
 import { useDispatch } from 'react-redux';
-import { PropTypes } from '@material-ui/core';
+import { PropTypes } from 'prop-types';
 
 export default function LoginModal (props) {
   const dispatch = useDispatch();
@@ -91,5 +91,5 @@ export default function LoginModal (props) {
 
 LoginModal.propTypes = {
   setOpen: PropTypes.func,
-  open: PropTypes.boolean
+  open: PropTypes.bool
 };

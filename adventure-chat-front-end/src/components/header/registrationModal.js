@@ -4,7 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import { AccountService } from '../../services/account.service';
-import { PropTypes } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 export default function RegistrationModal (props) {
   console.log(props);
@@ -133,5 +133,5 @@ export default function RegistrationModal (props) {
 
 RegistrationModal.propTypes = {
   setOpen: PropTypes.func,
-  open: PropTypes.boolean
+  open: PropTypes.bool
 };

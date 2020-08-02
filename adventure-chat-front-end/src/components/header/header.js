@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toggleLoggedIn } from '../../redux/actions';
 import LoginModal from './loginModal';
 import RegistrationModal from './registrationModal';
-import { PropTypes } from '@material-ui/core';
+import PropTypes from 'prop-types';
 
 function LoggedOut (props) {
   return (
