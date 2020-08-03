@@ -1,0 +1,17 @@
+version: '3'
+services:
+  adventure:
+    build:
+      context: adventure-chat-front-end
+      dockerfile: Dockerfile.deploy
+    volumes:
+      - './adventure-chat-front-end:/opt/adventure-chat'
+      - '/opt/adventure-chat/node_modules'
+    ports:
+      - "3000:3000"
+      - "8080:80"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - NGINX_HOST=adventurechat.com
+      - NGINX_PORT=80
+    stdin_open: true
