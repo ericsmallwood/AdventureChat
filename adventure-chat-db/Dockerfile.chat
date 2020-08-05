@@ -1,0 +1,5 @@
+FROM mysql:8
+
+ENV MYSQL_DATABASE chat
+
+COPY ./tables/chat/ /docker-entrypoint-initdb.d/

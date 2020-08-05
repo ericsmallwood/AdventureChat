@@ -1,12 +1,18 @@
 import * as mysql from 'mysql';
 import {mysqlLogin} from './config';
 
-export const connection: any = mysql.createConnection(mysqlLogin);
+export let connection: any = null;
 
 function handleDisconnect() {
+    if(connection) {
+        connection.end();
+    }
+
+    connection = mysql.createConnection(mysqlLogin);
+
     connection.connect((err: any) => {
         if(err) {
-            console.log('error when connecting to db1:', err);
+            console.log('error when connecting to db:', err);
             setTimeout(handleDisconnect, 2000);
         }
     });

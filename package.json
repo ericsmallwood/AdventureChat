@@ -20,6 +20,8 @@
     "front-end-lint"
   ],
   "dependencies": {
+    "expo-cli": "^3.23.2",
+    "global": "^4.4.0",
     "tslint": "^6.1.2"
   }
 }
