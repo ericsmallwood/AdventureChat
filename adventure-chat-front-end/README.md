@@ -1,3 +1,8 @@
+## Starting Up The Development Environment with Docker
+- Install docker
+- Install docker-compose
+- run command `docker-compose --file docker-compose.dev.yaml up --build`
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
