@@ -8,7 +8,6 @@ services:
       - './adventure-chat-front-end:/opt/adventure-chat'
       - '/opt/adventure-chat/node_modules'
     ports:
-      - "3000:3000"
       - "8080:80"
     environment:
       - CHOKIDAR_USEPOLLING=true
