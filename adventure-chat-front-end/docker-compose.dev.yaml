@@ -2,7 +2,7 @@ version: '3'
 services:
   fe:
     build:
-      context: adventure-chat-front-end
+      context: ""
       dockerfile: Dockerfile
     volumes:
       - './adventure-chat-front-end:/opt/adventure-chat'

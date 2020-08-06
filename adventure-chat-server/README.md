@@ -20,3 +20,9 @@
 - install and run NATS (https://nats.io/download/nats-io/nats-server/)
 - create config.ts file for each service folders at the root of the folder.
 - npm run dev
+
+## Docker dev setup
+- install docker
+- install docker-compose
+- create config.ts file for each service folders at the root of the folder.
+- run `docker-compose --file docker-compose.dev.yaml up --build`
