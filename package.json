@@ -22,6 +22,7 @@
   "dependencies": {
     "expo-cli": "^3.23.2",
     "global": "^4.4.0",
+    "jest": "^26.2.2",
     "tslint": "^6.1.2"
   }
 }
