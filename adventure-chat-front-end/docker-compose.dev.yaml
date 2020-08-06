@@ -5,7 +5,7 @@ services:
       context: ""
       dockerfile: Dockerfile
     volumes:
-      - './adventure-chat-front-end:/opt/adventure-chat'
+      - '.:/opt/adventure-chat'
       - '/opt/adventure-chat/node_modules'
     ports:
       - "3000:3000"
