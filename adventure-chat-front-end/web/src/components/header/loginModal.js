@@ -3,8 +3,8 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import { AccountService } from '../../services/account.service';
-import { loadUser, setToken, toggleLoggedIn } from '../../redux/actions';
+import { AccountService } from '../../../../shared/services/account.service';
+import { loadUser, setToken, toggleLoggedIn } from '../../../../shared/redux/actions';
 import { useDispatch } from 'react-redux';
 import { PropTypes } from 'prop-types';
 

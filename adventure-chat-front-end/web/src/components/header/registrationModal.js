@@ -3,7 +3,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import { AccountService } from '../../services/account.service';
+import { AccountService } from '../../../../shared/services/account.service';
 import PropTypes from 'prop-types';
 
 export default function RegistrationModal (props) {

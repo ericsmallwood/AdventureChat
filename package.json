@@ -12,7 +12,7 @@
   "scripts": {
     "server-test": "cd adventure-chat-server && yarn test",
     "server-lint": "cd adventure-chat-server && yarn lint --fix",
-    "front-end-lint": "cd adventure-chat-front-end && yarn lint --fix"
+    "front-end-lint": "cd adventure-chat-front-end/web && yarn lint --fix"
   },
   "pre-commit": [
     "server-test",
@@ -20,9 +20,6 @@
     "front-end-lint"
   ],
   "dependencies": {
-    "expo-cli": "^3.23.2",
-    "global": "^4.4.0",
-    "jest": "^26.2.2",
-    "tslint": "^6.1.2"
+    "jest": "^26.2.2"
   }
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loadUser, setToken, toggleLoggedIn } from '../redux/actions';
+import { loadUser, setToken, toggleLoggedIn } from '../../../shared/redux/actions';
 
 export default function DataLoader (props) {
   const dispatch = useDispatch();

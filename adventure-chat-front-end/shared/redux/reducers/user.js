@@ -1,4 +1,4 @@
-import { EDIT_USER, LOAD_USER } from './../actionTypes';
+import { EDIT_USER, LOAD_USER } from '../actionTypes';
 
 const initialState = {
   user: null

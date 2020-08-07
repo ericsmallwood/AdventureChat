@@ -9,7 +9,7 @@ import {
 import './App.css';
 import Header from './components/header/header';
 import Home from './components/home/home';
-import store from './redux/store';
+import store from '../../shared/redux/store';
 import DataLoader from './components/dataLoader';
 import Confirmation from './components/confirmation/confirmation';
 import Registered from './components/registered/registered';

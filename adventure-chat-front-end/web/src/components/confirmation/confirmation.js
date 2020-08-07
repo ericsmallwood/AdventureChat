@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { AccountService } from '../../services/account.service';
+import { AccountService } from '../../../../shared/services/account.service';
 import PropTypes from 'prop-types';
 
 export default function Confirmation (props) {

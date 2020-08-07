@@ -1,4 +1,4 @@
-import { AUTH_API_URI, ACCOUNTS_API_URI } from './../config';
+import { AUTH_API_URI, ACCOUNTS_API_URI } from '../config';
 
 export class AccountService {
   static login (username, password) {

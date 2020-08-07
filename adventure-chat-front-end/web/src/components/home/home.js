@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './home.css';
-import Mascot from '../../resources/images/mascot.png';
+import Mascot from '../../../../shared/resources/images/mascot.png';
 import { useSelector } from 'react-redux';
 
 function Welcome () {

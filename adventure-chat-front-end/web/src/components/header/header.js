@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import './header.css';
-import Logo from './../../resources/images/logo.jpg';
+import Logo from './../../../../shared/resources/images/logo.jpg';
 import { useDispatch, useSelector } from 'react-redux';
-import { toggleLoggedIn } from '../../redux/actions';
+import { toggleLoggedIn } from '../../../../shared/redux/actions';
 import LoginModal from './loginModal';
 import RegistrationModal from './registrationModal';
 import PropTypes from 'prop-types';
