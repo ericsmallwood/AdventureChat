@@ -14,8 +14,14 @@ const isPortrait = () => {
 };
 
 
-export default function Home(props) {
+export default function Home() {
+    const conversation = [
+        'The Gods are smiling upon us this day!',
+        'Evil will be vanquished!',
+    ];
+    let index = 0;
     const [isLandScape, setIsLandscape] = useState(true);
+    const [currentStatement, setCurrentStatement] = useState(conversation[index]);
 
     let [fontsLoaded] = useFonts({
         'Enochian': require('./../../../shared/resources/fonts/Enochian.ttf'),
@@ -23,6 +29,12 @@ export default function Home(props) {
 
     useEffect(() => {
         setIsLandscape(!isPortrait());
+    }, []);
+
+    useEffect(() => {
+        setInterval(() => {
+            setCurrentStatement(conversation[++index % conversation.length]);
+        }, 3000);
     }, []);
 
     Dimensions.addEventListener('change', () => {
@@ -52,7 +64,7 @@ export default function Home(props) {
                         color: 'black'
                     }}
                 >
-                    The Gods are smiling upon us this day!
+                    {currentStatement}
                 </Text>
             </View>
             : <AppLoading />
