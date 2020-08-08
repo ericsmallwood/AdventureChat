@@ -15,7 +15,7 @@ export class UsersDataManager implements IUsersDataManager {
         return this._usersDao.create(data);
     }
 
-    public delete(id: number): Promise<any> {
+    public delete(id: number): Promise<any>  {
         return this._usersDao.delete(id);
     }
 

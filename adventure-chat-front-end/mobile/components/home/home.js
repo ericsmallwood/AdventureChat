@@ -23,9 +23,7 @@ export default function Home() {
     const [isLandScape, setIsLandscape] = useState(true);
     const [currentStatement, setCurrentStatement] = useState(conversation[index]);
 
-    let [fontsLoaded] = useFonts({
-        'Enochian': require('./../../../shared/resources/fonts/Enochian.ttf'),
-    });
+
 
     useEffect(() => {
         setIsLandscape(!isPortrait());
@@ -45,10 +43,8 @@ export default function Home() {
     const height = isLandScape ? Math.round(dimensions.height * .85): Math.round(dimensions.height * .7);
     const width = Math.round(height * .5);
 
-
     return (
-        fontsLoaded
-            ? <View style={styles.container}>
+        <View style={styles.container}>
                 <Image source={{uri: Mascot}} style={{height: height, width: width}} />
                 <Text
                     style={{
@@ -67,6 +63,5 @@ export default function Home() {
                     {currentStatement}
                 </Text>
             </View>
-            : <AppLoading />
     )
 }
