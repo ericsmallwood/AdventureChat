@@ -10,16 +10,21 @@ import Home from "./components/home/home";
 import Header from "./components/header/header";
 import {useFonts} from "expo-font";
 import {AppLoading} from "expo";
+import Cellestial from './assets/fonts/theban.ttf';
+import Anglodavek from './assets/fonts/Anglodavek-a55E.ttf';
+import Rellanic from './assets/fonts/Rellanic.otf';
+import Reisenberg from './assets/fonts/Reisenberg20-ExP9.ttf';
+import Dethek from './assets/fonts/Dethek-wWJz.ttf';
 
 const Stack = createStackNavigator();
 
 export default function App() {
     let [fontsLoaded] = useFonts({
-        'Enochian': require('./../shared/resources/fonts/Enochian.ttf'),
-        'Anglodavek': require('./../shared/resources/fonts/Anglodavek-a55E.ttf'),
-        'Dethek': require('./../shared/resources/fonts/Dethek-wWJz.ttf'),
-        'Reisenberg': require('./../shared/resources/fonts/Reisenberg20-ExP9.ttf'),
-        'Rellanic': require('./../shared/resources/fonts/Rellanic.otf')
+        'Cellestial': Cellestial,
+        'Anglodavek': Anglodavek,
+        'Rellanic': Rellanic,
+        'Reisenberg': Reisenberg,
+        'Dethek': Dethek
     });
 
     return (

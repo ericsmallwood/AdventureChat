@@ -41,30 +41,30 @@
   font-family: 'Anglodavek';
   font-style: normal;
   font-weight: 400;
-  src: url('../../shared/resources/fonts/Anglodavek-a55E.ttf');
-  src: local('Anglodavek'), url('../../shared/resources/fonts/Anglodavek-a55E.ttf');
+  src: url('../resources/fonts/Anglodavek-a55E.ttf');
+  src: local('Anglodavek'), url('../resources/fonts/Anglodavek-a55E.ttf');
 }
 
 @font-face {
   font-family: 'Reisenberg';
   font-style: normal;
   font-weight: 400;
-  src: url('../../shared/resources/fonts/Reisenberg20-ExP9.ttf');
-  src: local('Reisenberg'), url('../../shared/resources/fonts/Reisenberg20-ExP9.ttf');
+  src: url('../resources/fonts/Reisenberg20-ExP9.ttf');
+  src: local('Reisenberg'), url('../resources/fonts/Reisenberg20-ExP9.ttf');
 }
 
 @font-face {
   font-family: 'Dethek';
   font-style: normal;
   font-weight: 400;
-  src: url('../../shared/resources/fonts/Dethek-wWJz.ttf');
-  src: local('Dethek'), url('../../shared/resources/fonts/Dethek-wWJz.ttf');
+  src: url('../resources/fonts/Dethek-wWJz.ttf');
+  src: local('Dethek'), url('../resources/fonts/Dethek-wWJz.ttf');
 }
 
 @font-face {
   font-family: 'Rellanic';
   font-style: normal;
   font-weight: 400;
-  src: url('../../shared/resources/fonts/Rellanic.otf');
-  src: local('Dethek'), url('../../shared/resources/fonts/Rellanic.otf');
+  src: url('../resources/fonts/Rellanic.otf');
+  src: local('Dethek'), url('../resources/fonts/Rellanic.otf');
 }

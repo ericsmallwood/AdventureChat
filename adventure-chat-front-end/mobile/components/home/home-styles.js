@@ -7,21 +7,11 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    conversation: {
-        position: 'absolute',
-        padding: 5,
-        borderRadius: 10,
-        fontFamily: 'Enochian',
-        fontWeight: 'bold',
-        backgroundColor: 'white',
-        color: 'black'
-    },
     chatBubble: {
         position: 'absolute',
         padding: 5,
         borderRadius: 10,
-        fontFamily: 'Enochian',
-        fontWeight: 'bold',
+        fontFamily: 'Cellestial',
         backgroundColor: 'white',
         color: 'black'
     },

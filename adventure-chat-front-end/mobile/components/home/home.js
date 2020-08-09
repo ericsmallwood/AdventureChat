@@ -2,11 +2,11 @@ import React, {useEffect, useState} from 'react';
 import {StyleSheet, Text, View, Dimensions} from "react-native";
 import {StatusBar} from "expo-status-bar";
 import {NavigationContainer} from "@react-navigation/native";
-import styles, {chatBubble} from './home-styles';
+import styles from './home-styles';
 import {Image} from "react-native-elements";
-import Mascot from "../../../shared/resources/images/mascot-mobile.png";
+import Mascot from "../../assets/images/mascot-mobile.png";
 import { AppLoading } from 'expo';
-import { useFonts } from 'expo-font';
+import { useFonts, loadAsync } from 'expo-font';
 
 const isPortrait = () => {
     const dim = Dimensions.get('screen');
@@ -23,16 +23,15 @@ export default function Home() {
     const [isLandScape, setIsLandscape] = useState(true);
     const [currentStatement, setCurrentStatement] = useState(conversation[index]);
 
-
-
     useEffect(() => {
         setIsLandscape(!isPortrait());
     }, []);
 
     useEffect(() => {
-        setInterval(() => {
+        const interval = setInterval(() => {
             setCurrentStatement(conversation[++index % conversation.length]);
-        }, 3000);
+        }, 2000);
+
     }, []);
 
     Dimensions.addEventListener('change', () => {
@@ -45,14 +44,15 @@ export default function Home() {
 
     return (
         <View style={styles.container}>
-                <Image source={{uri: Mascot}} style={{height: height, width: width}} />
+                <Image source={Mascot} style={{height: height, width: width}} />
                 <Text
                     style={StyleSheet.flatten([
                         styles.chatBubble,
                         {
-                            maxWidth: isLandScape ? 500 : 150,
-                            right: isLandScape ? dimensions.width * .15 : dimensions.width * .07,
-                            top: isLandScape ? dimensions.height * .02 : dimensions .height * .12
+                            width: isLandScape ? dimensions.width * .25 : dimensions.width * .35,
+                            right: isLandScape ? dimensions.width * .2 : dimensions.width * .075,
+                            top: isLandScape ? dimensions.height * .02 : dimensions .height * .12,
+                            height: (currentStatement.length / 24) * 35
                         }
                     ])}
                 >
