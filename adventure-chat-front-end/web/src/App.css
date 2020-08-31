@@ -68,3 +68,11 @@
   src: url('../resources/fonts/Rellanic.otf');
   src: local('Dethek'), url('../resources/fonts/Rellanic.otf');
 }
+
+@font-face {
+  font-family: 'Infernal';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../resources/fonts/dnd-Infernal.ttf');
+  src: local('Dethek'), url('../resources/fonts/dnd-Infernal.ttf');
+}

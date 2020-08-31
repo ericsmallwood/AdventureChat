@@ -15,6 +15,7 @@ import Anglodavek from './assets/fonts/Anglodavek-a55E.ttf';
 import Rellanic from './assets/fonts/Rellanic.otf';
 import Reisenberg from './assets/fonts/Reisenberg20-ExP9.ttf';
 import Dethek from './assets/fonts/Dethek-wWJz.ttf';
+import Infernal from './assets/fonts/dnd-Infernal.ttf'
 
 const Stack = createStackNavigator();
 
@@ -24,7 +25,8 @@ export default function App() {
         'Anglodavek': Anglodavek,
         'Rellanic': Rellanic,
         'Reisenberg': Reisenberg,
-        'Dethek': Dethek
+        'Dethek': Dethek,
+        'Infernal': Infernal
     });
 
     return (
